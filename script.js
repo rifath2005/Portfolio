@@ -1,169 +1,169 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const main = document.querySelector('main');
-  const navMenu = document.getElementById('nav-menu');
-  const navToggle = document.querySelector('.nav__toggle');
-  const navLinks = document.querySelectorAll('.nav__link');
-  
-  // Mobile menu toggle
-  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-  const navLinksMenu = document.querySelector('.nav-links');
-  
-  if (mobileMenuToggle && navLinksMenu) {
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenuToggle.classList.toggle('active');
-      navLinksMenu.classList.toggle('active');
-    });
-    
-    // Close menu when clicking on a link
-    const menuLinks = navLinksMenu.querySelectorAll('a');
-    menuLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenuToggle.classList.remove('active');
-        navLinksMenu.classList.remove('active');
-      });
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!mobileMenuToggle.contains(e.target) && !navLinksMenu.contains(e.target)) {
-        mobileMenuToggle.classList.remove('active');
-        navLinksMenu.classList.remove('active');
+  const navLinks = document.querySelectorAll('.nav__link, .nav-links a');
+
+  /* ---- Full Page Scroll with Storytelling Effect ---- */
+  function initFullPageScroll() {
+    const sections = document.querySelectorAll('.hero, .section');
+    let currentSection = 0;
+    let isScrolling = false;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    let scrollAccumulator = 0;
+    const scrollThreshold = 100; // Increased threshold - need more scroll to change section
+
+    // Set initial section states - ENSURE HERO IS VISIBLE
+    sections.forEach((section, index) => {
+      section.style.position = 'fixed';
+      section.style.top = '0';
+      section.style.left = '0';
+      section.style.width = '100%';
+      section.style.minHeight = '100vh';
+      section.style.opacity = index === 0 ? '1' : '0';
+      section.style.transform = index === 0 ? 'translateY(0)' : 'translateY(100vh)';
+      section.style.transition = 'all 1.2s cubic-bezier(0.65, 0, 0.35, 1)';
+      section.style.zIndex = index === 0 ? '10' : '1';
+      section.style.visibility = index === 0 ? 'visible' : 'hidden';
+      
+      // Add section number indicator
+      if (!section.querySelector('.section-indicator')) {
+        const indicator = document.createElement('div');
+        indicator.className = 'section-indicator';
+        indicator.textContent = `0${index + 1}`;
+        section.appendChild(indicator);
       }
     });
-  }
 
-  /* ---- Mobile menu toggle ---- */
-  if (navToggle && navMenu) {
-    navToggle.addEventListener('click', () => {
-      const open = navMenu.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', open);
-      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    });
+    function scrollToSection(index) {
+      if (index < 0 || index >= sections.length || isScrolling) return;
+      
+      isScrolling = true;
+      const oldSection = currentSection;
+      currentSection = index;
 
-    /* Close menu on escape */
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navMenu.classList.contains('is-open')) {
-        navMenu.classList.remove('is-open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        navToggle.setAttribute('aria-label', 'Open menu');
-      }
-    });
-  }
+      // Hide old section
+      sections[oldSection].style.transform = index > oldSection ? 'translateY(-100vh)' : 'translateY(100vh)';
+      sections[oldSection].style.opacity = '0';
+      
+      setTimeout(() => {
+        sections[oldSection].style.visibility = 'hidden';
+      }, 600);
 
-  /* ---- Smooth scroll + close mobile menu when clicking nav link ---- */
-  navLinks.forEach(link => {
-    const href = link.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      link.addEventListener('click', (e) => {
-        const id = href.slice(1);
-        const target = document.getElementById(id);
-        if (target) {
-          e.preventDefault();
-          if (navMenu && navMenu.classList.contains('is-open')) {
-            navMenu.classList.remove('is-open');
-            if (navToggle) {
-              navToggle.setAttribute('aria-expanded', 'false');
-              navToggle.setAttribute('aria-label', 'Open menu');
-            }
-          }
-          const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
-        }
-      });
+      // Show new section
+      sections[index].style.visibility = 'visible';
+      sections[index].style.transform = 'translateY(0)';
+      sections[index].style.opacity = '1';
+      sections[index].style.zIndex = '10';
+
+      setTimeout(() => {
+        sections[oldSection].style.zIndex = '1';
+        isScrolling = false;
+        scrollAccumulator = 0; // Reset accumulator
+      }, 1200);
     }
-  });
 
-  /* ---- Scroll-reveal: init after loader completes for smooth flow ---- */
-  function initReveal() {
-    const sections = main ? main.querySelectorAll(':scope > section') : document.querySelectorAll('main > section');
-    sections.forEach(section => section.classList.add('reveal-section'));
+    // Mouse wheel scroll with accumulator
+    let scrollTimeout;
+    window.addEventListener('wheel', (e) => {
+      if (isScrolling) return;
+      
+      // Accumulate scroll delta
+      scrollAccumulator += Math.abs(e.deltaY);
+      
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (scrollAccumulator >= scrollThreshold) {
+          if (e.deltaY > 0) {
+            scrollToSection(currentSection + 1);
+          } else {
+            scrollToSection(currentSection - 1);
+          }
+          scrollAccumulator = 0;
+        } else {
+          // Reset if not enough scroll
+          scrollAccumulator = 0;
+        }
+      }, 150); // Increased delay for better control
+    }, { passive: true });
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -5% 0px',
-      threshold: [0.1, 0.2]
-    };
+    // Touch events for mobile
+    window.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          obs.unobserve(entry.target);
+    window.addEventListener('touchend', (e) => {
+      touchEndY = e.changedTouches[0].clientY;
+      const swipeDistance = touchStartY - touchEndY;
+      if (Math.abs(swipeDistance) > 80 && !isScrolling) { // Increased threshold
+        if (swipeDistance > 0) {
+          scrollToSection(currentSection + 1);
+        } else {
+          scrollToSection(currentSection - 1);
+        }
+      }
+    }, { passive: true });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (isScrolling) return;
+      
+      if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        e.preventDefault();
+        scrollToSection(currentSection + 1);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        scrollToSection(currentSection - 1);
+      }
+    });
+
+    // Navigation click
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const id = href.slice(1);
+          const sectionIds = ['hero', 'about', 'works', 'services', 'contact'];
+          const sectionIndex = sectionIds.indexOf(id);
+          if (sectionIndex >= 0) {
+            scrollToSection(sectionIndex);
+          }
         }
       });
-    }, observerOptions);
-
-    sections.forEach(section => observer.observe(section));
+    });
   }
 
-  if (document.body.classList.contains('loaded')) {
-    initReveal();
-  } else {
-    window.addEventListener('loaderComplete', initReveal, { once: true });
-  }
-
-  /* ---- Parallax Scroll Effect ---- */
-  function initParallax() {
-    const hero = document.querySelector('.hero');
-    const heroHeadline = document.querySelector('.main-headline');
-    const heroPhoto = document.querySelector('.photo-container');
-    const heroServices = document.querySelector('.services-list');
-    const heroLocation = document.querySelector('.location-text');
-    const sections = document.querySelectorAll('.section');
+  /* ---- 3D Parallax Effect ---- */
+  function init3DParallax() {
+    const sections = document.querySelectorAll('.hero, .section');
     
+    sections.forEach(section => {
+      section.style.perspective = '1000px';
+      section.style.transformStyle = 'preserve-3d';
+    });
+
     let ticking = false;
 
-    function updateParallax() {
-      const scrolled = window.pageYOffset;
-      
-      // Hero section parallax
-      if (hero) {
-        const heroTop = hero.offsetTop;
-        const heroHeight = hero.offsetHeight;
-        const heroScroll = scrolled - heroTop;
+    function update3DEffect() {
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
         
-        if (scrolled < heroHeight) {
-          // Headline moves slower (0.3x speed)
-          if (heroHeadline) {
-            heroHeadline.style.transform = `translateY(${heroScroll * 0.3}px)`;
+        if (isVisible) {
+          const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+          const rotateX = (progress - 0.5) * 5;
+          
+          const title = section.querySelector('.main-headline, .section__title, .about-title');
+          const content = section.querySelector('.hero-middle, .work-grid, .services-grid, .contact-content');
+          
+          if (title) {
+            title.style.transform = `translateZ(50px) rotateX(${rotateX * 0.5}deg)`;
+            title.style.transformStyle = 'preserve-3d';
           }
           
-          // Photo moves at normal speed with slight scale
-          if (heroPhoto) {
-            const scale = 1 + (heroScroll / heroHeight) * 0.1;
-            heroPhoto.style.transform = `translateY(${heroScroll * 0.5}px) scale(${scale})`;
+          if (content) {
+            content.style.transform = `translateZ(30px)`;
+            content.style.transformStyle = 'preserve-3d';
           }
-          
-          // Services list moves faster (0.7x speed)
-          if (heroServices) {
-            heroServices.style.transform = `translateY(${heroScroll * 0.7}px)`;
-          }
-          
-          // Location text moves slower (0.2x speed)
-          if (heroLocation) {
-            heroLocation.style.transform = `translateY(${heroScroll * 0.2}px)`;
-          }
-        }
-      }
-      
-      // Section parallax effects
-      sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionScroll = scrolled - sectionTop + window.innerHeight;
-        
-        if (sectionScroll > 0 && sectionScroll < sectionHeight + window.innerHeight) {
-          const progress = sectionScroll / (sectionHeight + window.innerHeight);
-          
-          // Different parallax speeds for different sections
-          const speed = index % 2 === 0 ? 0.3 : -0.2;
-          const translateY = (progress - 0.5) * 100 * speed;
-          
-          section.style.transform = `translateY(${translateY}px)`;
-          
-          // Fade effect based on scroll position
-          const opacity = 1 - Math.abs(progress - 0.5) * 0.3;
-          section.style.opacity = Math.max(0.7, opacity);
         }
       });
       
@@ -172,24 +172,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function requestTick() {
       if (!ticking) {
-        requestAnimationFrame(updateParallax);
+        requestAnimationFrame(update3DEffect);
         ticking = true;
       }
     }
 
-    // Listen to scroll events
     window.addEventListener('scroll', requestTick, { passive: true });
-    
-    // Initial call
-    updateParallax();
+    update3DEffect();
   }
 
-  // Initialize parallax after loader completes
+  /* ---- Initialize after loader ---- */
+  function initEffects() {
+    setTimeout(() => {
+      initFullPageScroll();
+      init3DParallax();
+    }, 100);
+  }
+
   if (document.body.classList.contains('loaded')) {
-    initParallax();
+    initEffects();
   } else {
-    window.addEventListener('loaderComplete', () => {
-      setTimeout(initParallax, 100);
-    }, { once: true });
+    window.addEventListener('loaderComplete', initEffects, { once: true });
   }
 });

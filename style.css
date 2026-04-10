@@ -40,12 +40,46 @@ body.loading .portfolio {
   opacity: 0;
 }
 
+body.loading .header {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+body.loading .hero {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
 body.loaded .loader {
   pointer-events: none;
+  display: none;
 }
 
 body.loaded .portfolio {
   visibility: visible;
+  opacity: 1;
+}
+
+body.loaded .header {
+  visibility: visible !important;
+  animation: fadeInNavQuick 0.4s ease-out 0s forwards !important;
+}
+
+body.loaded .hero {
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+}
+
+@keyframes fadeInNavQuick {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
@@ -275,10 +309,25 @@ body.loaded .portfolio {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2.5rem;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid #ddd;
-  position: relative;
+  background: #ffffff;
+  border-bottom: 1px solid #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
+  opacity: 0;
+}
+
+@keyframes fadeInNav {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .logo {
@@ -609,12 +658,14 @@ body.loaded .portfolio {
 /* Hero Section - Fixed Layout */
 .hero {
   position: relative;
-  min-height: auto;
+  min-height: 100vh;
   padding: 0;
-  background: var(--bg-color);
+  padding-top: 80px;
+  padding-bottom: 50px;
+  background: #ffffff;
   overflow: hidden;
+  visibility: visible !important;
 }
-
 .golden-ratio {
   display: block;
   position: relative;
@@ -627,13 +678,29 @@ body.loaded .portfolio {
   margin-bottom: 8px;
   padding-top: 2rem;
   z-index: 20;
+  opacity: 0;
+}
+
+body.loaded .golden-ratio {
+  animation: fadeInDown 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .main-headline {
   font-family: var(--font-display);
-  font-size: clamp(150px, 22vw, 320px);
+  font-size: clamp(120px, 18vw, 260px);
   line-height: 0.85;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   font-weight: 200;
   margin: 0;
   padding: 0;
@@ -641,10 +708,20 @@ body.loaded .portfolio {
   z-index: 10;
   white-space: nowrap;
   width: 100%;
-  padding-left: 2rem;
+  padding-left: 5rem;
   padding-right: 2rem;
-  animation: slideUpHook 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+body.loaded .main-headline {
+  visibility: visible;
+}
+
+.headline-letter {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
 @keyframes slideUpHook {
@@ -677,6 +754,22 @@ body.loaded .portfolio {
   position: relative;
   z-index: 3;
   gap: 3rem;
+  opacity: 0;
+}
+
+body.loaded .hero-middle {
+  animation: fadeInUp 1s ease-out 1.4s both;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-left {
@@ -699,6 +792,18 @@ body.loaded .portfolio {
   letter-spacing: 0.02em;
   line-height: 1.3;
   align-self: end;
+  animation: slideInLeft 1s ease-out 1.1s both;
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .services-list span {
@@ -719,6 +824,18 @@ body.loaded .portfolio {
   height: 480px;
   overflow: hidden;
   flex-shrink: 0;
+  animation: slideInRight 1s ease-out 1s both;
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .photo-container img {
@@ -742,6 +859,7 @@ body.loaded .portfolio {
   align-self: flex-start;
   padding-top: 5rem;
   white-space: nowrap;
+  animation: fadeIn 1s ease-out 1.2s both;
 }
 
 .bio-text {
@@ -756,6 +874,7 @@ body.loaded .portfolio {
   font-weight: 400;
   margin: 50px auto 0;
   padding: 0 3rem 3rem;
+  animation: fadeInUp 1s ease-out 1.4s both;
 }
 
 /* Old hero styles - keeping for compatibility */
@@ -898,16 +1017,20 @@ body.loaded .portfolio {
 /* Sections */
 .section {
   padding: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 4rem);
+  padding-top: calc(clamp(3rem, 8vw, 6rem) + 80px);
+  padding-bottom: calc(clamp(3rem, 8vw, 6rem) + 50px);
   border-top: 1px solid var(--border-color);
+  min-height: 100vh;
 }
 
 .section--about {
   padding: 0;
   border: none;
-  background: var(--bg-secondary);
+  background: #000000 !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  color: #ffffff !important;
 }
 
 .section__container {
@@ -918,26 +1041,28 @@ body.loaded .portfolio {
 
 .about-title {
   font-family: var(--font-display);
-  font-size: clamp(6rem, 18vw, 18rem);
+  font-size: clamp(8rem, 20vw, 22rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   text-align: center;
   margin: 0;
-  padding: clamp(8rem, 15vh, 12rem) 2rem clamp(4rem, 8vh, 6rem);
+  padding: clamp(4rem, 8vh, 6rem) 2rem clamp(2rem, 4vh, 3rem);
   overflow: hidden;
-  background: var(--bg-secondary);
+  background: #000000;
+  color: #ffffff !important;
 }
 
 .about-title .letter {
   display: inline-block;
   transition: transform 0.6s cubic-bezier(0.11, 0.82, 0.39, 0.92);
+  color: #ffffff !important;
 }
 
 .about-content {
-  background: #000000;
-  color: #ffffff;
+  background: #000000 !important;
+  color: #ffffff !important;
   flex: 1;
-  padding: clamp(4rem, 10vh, 8rem) clamp(2rem, 5vw, 4rem);
+  padding: clamp(2rem, 5vh, 4rem) clamp(2rem, 5vw, 4rem) clamp(3rem, 6vh, 5rem);
   transition: background 0.8s cubic-bezier(0.11, 0.82, 0.39, 0.92);
 }
 
@@ -947,17 +1072,19 @@ body.loaded .portfolio {
 }
 
 .about-content p {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  line-height: 1.8;
-  margin-bottom: 2rem;
-  color: #ffffff;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  color: #ffffff !important;
 }
 
 .section__title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(3.5rem, 8vw, 6rem);
   font-weight: 400;
   letter-spacing: 0.02em;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
   margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
@@ -983,9 +1110,10 @@ body.loaded .portfolio {
 
 /* Works Section */
 .section--works {
-  background: var(--bg-secondary);
+  background: #ffffff !important;
   padding: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 4rem);
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid #000000;
+  color: #000000 !important;
 }
 
 .work-grid {
@@ -1030,16 +1158,17 @@ body.loaded .portfolio {
 /* Services Section */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: clamp(2rem, 4vw, 3rem);
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(3rem, 6vw, 5rem);
+  row-gap: clamp(4rem, 8vh, 6rem);
 }
 
 .service-block h4 {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
   font-weight: 700;
   letter-spacing: 0.05em;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .service-block ul {
@@ -1047,11 +1176,12 @@ body.loaded .portfolio {
 }
 
 .service-block li {
-  font-size: 0.9rem;
-  line-height: 1.8;
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.9;
   color: var(--text-secondary);
-  padding-left: 1rem;
+  padding-left: 1.5rem;
   position: relative;
+  margin-bottom: 0.5rem;
 }
 
 .service-block li::before {
@@ -1089,16 +1219,25 @@ body.loaded .portfolio {
   opacity: 0.6;
 }
 
-/* Footer */
+/* Footer - REMOVED */
+
+/* Footer - Only visible in Contact section */
 .footer {
-  padding: 2rem clamp(2rem, 5vw, 4rem);
-  border-top: 1px solid var(--border-color);
+  position: relative;
+  width: 100%;
+  padding: 3rem 2rem 2rem;
+  background: transparent;
+  border-top: 1px solid #000000;
   text-align: center;
+  margin-top: 4rem;
 }
 
 .footer p {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: #000000;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 /* ==========================================================================
@@ -1108,7 +1247,7 @@ body.loaded .portfolio {
 /* Tablet - 1024px and below */
 @media (max-width: 1024px) {
   .main-headline {
-    font-size: clamp(120px, 18vw, 280px);
+    font-size: clamp(100px, 16vw, 240px);
     letter-spacing: -0.03em;
   }
   
@@ -1352,7 +1491,7 @@ body.loaded .portfolio {
 /* Large Desktop - 1440px and above */
 @media (min-width: 1440px) {
   .main-headline {
-    font-size: clamp(200px, 20vw, 380px);
+    font-size: clamp(160px, 18vw, 320px);
   }
   
   .hero-middle {
@@ -1384,7 +1523,7 @@ body.loaded .portfolio {
 /* Ultra-wide - 1920px and above */
 @media (min-width: 1920px) {
   .main-headline {
-    font-size: clamp(240px, 18vw, 420px);
+    font-size: clamp(200px, 16vw, 360px);
   }
   
   .hero-middle {
@@ -1453,3 +1592,357 @@ html {
     transform: none !important;
   }
 }
+
+
+/* ==========================================================================
+   FULL PAGE SCROLL & STORYTELLING EFFECT
+   ========================================================================== */
+
+/* Hero section - White background */
+.hero {
+  background: #f5f5f5;
+  color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* About section - Black background */
+.section--about {
+  background: #000000;
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.section--about .about-title {
+  color: #ffffff;
+  background: #000000;
+}
+
+.section--about .about-content {
+  background: #000000;
+  color: #ffffff;
+}
+
+.section--about .about-content p {
+  color: #ffffff;
+}
+
+/* Works section - White background */
+.section--works {
+  background: #f5f5f5;
+  color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.section--works .section__title {
+  color: #000000;
+}
+
+.section--works .work-card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  color: #000000;
+}
+
+.section--works .work-card__title {
+  color: #000000;
+}
+
+.section--works .work-card__block h5 {
+  color: #000000;
+}
+
+.section--works .work-card__block p {
+  color: #666666;
+}
+
+/* Services section - Black background */
+.section--services {
+  background: #000000;
+  color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.section--services .section__title {
+  color: #ffffff;
+}
+
+.section--services .service-block {
+  color: #ffffff;
+}
+
+.section--services .service-block h4 {
+  color: #ffffff;
+}
+
+.section--services .service-block li {
+  color: #cccccc;
+}
+
+.section--services .service-block li::before {
+  color: #ffffff;
+}
+
+/* Contact section - White background */
+.section--contact {
+  background: #f5f5f5;
+  color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.section--contact .section__title {
+  color: #000000;
+}
+
+.section--contact .contact-intro {
+  color: #000000;
+}
+
+.section--contact .contact-link {
+  color: #000000;
+}
+
+.section--contact .contact-link:hover {
+  opacity: 0.6;
+}
+
+/* Section indicators */
+.section-indicator {
+  position: fixed;
+  top: 50%;
+  right: 3rem;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: 8rem;
+  font-weight: 400;
+  opacity: 0.05;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.hero .section-indicator {
+  color: #000000;
+}
+
+.section--about .section-indicator,
+.section--services .section-indicator {
+  color: #ffffff;
+}
+
+.section--works .section-indicator,
+.section--contact .section-indicator {
+  color: #000000;
+}
+
+/* 3D Transform effects */
+.hero,
+.section {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.main-headline,
+.section__title,
+.about-title {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+}
+
+.hero-middle,
+.work-grid,
+.services-grid,
+.contact-content {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+}
+
+/* Smooth transitions */
+body {
+  overflow: hidden;
+}
+
+.portfolio {
+  overflow: hidden;
+}
+
+/* Navigation active state */
+.nav__link.active,
+.nav-links a.active {
+  opacity: 1;
+  font-weight: 700;
+}
+
+/* Footer adjustments for fixed sections - REMOVED */
+
+/* Responsive adjustments for full page scroll */
+@media (max-width: 768px) {
+  .section-indicator {
+    right: 1.5rem;
+    font-size: 4rem;
+  }
+  
+  .hero,
+  .section {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-indicator {
+    right: 1rem;
+    font-size: 3rem;
+  }
+}
+
+/* Disable parallax on reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .section {
+    transition: none !important;
+    transform: none !important;
+  }
+  
+  .main-headline,
+  .section__title,
+  .about-title,
+  .hero-middle,
+  .work-grid,
+  .services-grid,
+  .contact-content {
+    transform: none !important;
+  }
+}
+
+
+/* ==========================================================================
+   COLOR OVERRIDES - ENSURE VISIBILITY
+   ========================================================================== */
+
+/* Hero section - White background with black text */
+.hero {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* About Section - Black background with white text */
+.section--about {
+  background: #000000 !important;
+}
+
+.section--about .about-title {
+  color: #ffffff !important;
+  background: #000000 !important;
+}
+
+.section--about .about-title .letter {
+  color: #ffffff !important;
+}
+
+.section--about .about-content {
+  background: #000000 !important;
+}
+
+.section--about .about-content p {
+  color: #ffffff !important;
+}
+
+/* Works Section - White background with black text */
+.section--works {
+  background: #ffffff !important;
+}
+
+.section--works .section__title {
+  color: #000000 !important;
+}
+
+.section--works .work-card {
+  background: #f5f5f5 !important;
+  border: 1px solid #000000 !important;
+}
+
+.section--works .work-card__title {
+  color: #000000 !important;
+}
+
+.section--works .work-card__block h5 {
+  color: #000000 !important;
+}
+
+.section--works .work-card__block p {
+  color: #000000 !important;
+  opacity: 0.8 !important;
+}
+
+/* Services Section - Black background with white text */
+.section--services {
+  background: #000000 !important;
+}
+
+.section--services .section__title {
+  color: #ffffff !important;
+}
+
+.section--services .service-block h4 {
+  color: #ffffff !important;
+}
+
+.section--services .service-block li {
+  color: #ffffff !important;
+}
+
+.section--services .service-block li::before {
+  color: #ffffff !important;
+}
+
+/* Contact Section - White background with black text */
+.section--contact {
+  background: #ffffff !important;
+}
+
+.section--contact .section__title {
+  color: #000000 !important;
+}
+
+.section--contact .contact-intro {
+  color: #000000 !important;
+}
+
+.section--contact .contact-link {
+  color: #000000 !important;
+}
+
+.section--contact .contact-link:hover {
+  opacity: 0.6;
+}
+
+

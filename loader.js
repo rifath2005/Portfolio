@@ -106,17 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         window.removeEventListener('mousemove', handleMouseMove);
         
+        // Remove loader from DOM
+        if (loaderElement) {
+          loaderElement.style.display = 'none';
+        }
+        
         body.classList.remove('loading');
         body.classList.add('loaded');
-        window.dispatchEvent(new Event('loaderComplete'));
+        
+        // Dispatch event AFTER loader is completely hidden
+        setTimeout(() => {
+          window.dispatchEvent(new Event('loaderComplete'));
+        }, 100);
       }
     });
 
-    // Orbit and percentage exit (orbit keeps spinning during fade out)
+    // Orbit and percentage exit
     exitTimeline.to([loaderOrbit, loaderPercent], {
       scale: 0.8,
       opacity: 0,
-      duration: 0.8,
+      duration: 0.6,
       ease: 'power4.in',
     });
 
@@ -125,83 +134,21 @@ document.addEventListener('DOMContentLoaded', () => {
       loaderElement,
       {
         opacity: 0,
-        duration: 0.8,
+        duration: 0.6,
         ease: 'power4.out',
       },
-      '-=0.4'
+      '-=0.3'
     );
 
-    // Fade in portfolio
+    // Fade in portfolio - ENSURE IT STARTS FROM HERO SECTION
     exitTimeline.to(
       '.portfolio',
       {
         opacity: 1,
-        duration: 1,
-        ease: 'power4.out',
-      },
-      '-=0.5'
-    );
-
-    // Animate hero section sliding up from below
-    exitTimeline.from(
-      '.hero',
-      {
-        y: 100,
-        opacity: 0,
-        duration: 1.5,
-        ease: 'power4.out',
-      },
-      '-=0.8'
-    );
-
-    // Animate brand name
-    exitTimeline.from(
-      '.brand-name',
-      {
-        y: -30,
-        opacity: 0,
-        duration: 1,
-        ease: 'power4.out',
-      },
-      '-=1.3'
-    );
-
-    // Animate nav links with stagger
-    exitTimeline.from(
-      '.nav__link',
-      {
-        y: -20,
-        opacity: 0,
         duration: 0.8,
-        stagger: 0.1,
         ease: 'power4.out',
       },
-      '-=1.2'
-    );
-
-    // Animate hero title
-    exitTimeline.from(
-      '.hero__title',
-      {
-        y: 50,
-        opacity: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-      },
-      '-=1.0'
-    );
-
-    // Animate hero content
-    exitTimeline.from(
-      '.hero__content, .hero__description',
-      {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'power4.out',
-      },
-      '-=0.9'
+      '-=0.2'
     );
   }
 

@@ -1,5 +1,65 @@
 // Text Animation - Letter by letter effect
 document.addEventListener('DOMContentLoaded', function() {
+  
+  // ===== HERO HEADLINE ANIMATION - Waterfall Hook Effect =====
+  function initHeadlineAnimation() {
+    const mainHeadline = document.querySelector('.main-headline');
+    
+    if (mainHeadline && !mainHeadline.dataset.animated) {
+      const text = mainHeadline.textContent;
+      const letters = text.split('');
+      
+      // Clear the headline
+      mainHeadline.innerHTML = '';
+      mainHeadline.style.opacity = '1';
+      
+      // Create letter spans
+      letters.forEach((letter, index) => {
+        const letterSpan = document.createElement('span');
+        letterSpan.className = 'headline-letter';
+        letterSpan.textContent = letter === ' ' ? '\u00A0' : letter;
+        letterSpan.style.display = 'inline-block';
+        letterSpan.style.transform = 'translateY(150%)';
+        letterSpan.style.opacity = '0';
+        mainHeadline.appendChild(letterSpan);
+      });
+      
+      mainHeadline.dataset.animated = 'true';
+      
+      // Calculate center and create waterfall hook effect
+      const letterElements = mainHeadline.querySelectorAll('.headline-letter');
+      const totalLetters = letterElements.length;
+      const center = Math.floor(totalLetters / 2);
+      
+      // Start animation after a delay (wait for loader to complete)
+      setTimeout(() => {
+        letterElements.forEach((letter, index) => {
+          // Calculate distance from center
+          const distanceFromCenter = Math.abs(index - center);
+          
+          // Center letters animate first, others follow based on distance
+          const delay = distanceFromCenter * 50; // 50ms per step from center
+          
+          setTimeout(() => {
+            letter.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease-out';
+            letter.style.transform = 'translateY(0)';
+            letter.style.opacity = '1';
+          }, delay);
+        });
+      }, 600); // Wait 600ms after loader completes
+    }
+  }
+  
+  // Wait for loader to complete before starting headline animation
+  if (document.body.classList.contains('loaded')) {
+    initHeadlineAnimation();
+  } else {
+    window.addEventListener('loaderComplete', () => {
+      setTimeout(initHeadlineAnimation, 100);
+    }, { once: true });
+  }
+  
+  // ===== ABOUT TITLE ANIMATION =====
   const aboutTitle = document.querySelector('#about > h2');
   
   if (aboutTitle && !aboutTitle.dataset.animated) {
