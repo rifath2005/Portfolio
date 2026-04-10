@@ -660,7 +660,7 @@ body.loaded .hero {
   position: relative;
   min-height: 100vh;
   padding: 0;
-  padding-top: 80px;
+  padding-top: 120px;
   padding-bottom: 50px;
   background: #ffffff;
   overflow: hidden;
@@ -675,8 +675,8 @@ body.loaded .hero {
   font-weight: 500;
   letter-spacing: 0.05em;
   color: var(--text-color);
-  margin-bottom: 8px;
-  padding-top: 2rem;
+  margin-bottom: 12px;
+  padding-top: 1rem;
   z-index: 20;
   opacity: 0;
 }
@@ -1293,6 +1293,7 @@ body.loaded .hero-middle {
   
   .hero {
     padding: 0;
+    padding-top: 100px;
   }
   
   .golden-ratio {
@@ -1306,6 +1307,9 @@ body.loaded .hero-middle {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     letter-spacing: -0.02em;
+    line-height: 0.8;
+    white-space: normal;
+    word-break: break-word;
   }
   
   .hero-middle {
@@ -1415,6 +1419,9 @@ body.loaded .hero-middle {
     font-size: clamp(50px, 13vw, 100px);
     padding-left: 1rem;
     padding-right: 1rem;
+    line-height: 0.8;
+    white-space: normal;
+    word-break: break-word;
   }
   
   .hero-middle {
@@ -1469,6 +1476,8 @@ body.loaded .hero-middle {
 @media (max-width: 768px) and (orientation: landscape) {
   .main-headline {
     font-size: clamp(50px, 12vw, 100px);
+    white-space: normal;
+    word-break: break-word;
   }
   
   .hero-middle {
