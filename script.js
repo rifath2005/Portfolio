@@ -3,46 +3,57 @@ const hamburger = document.querySelector('.hamburger');
 const navLinksContainer = document.querySelector('.nav-links');
 const menuOverlay = document.querySelector('.menu-overlay');
 
+console.log('Menu elements found:', {
+  hamburger: !!hamburger,
+  navLinksContainer: !!navLinksContainer,
+  menuOverlay: !!menuOverlay
+});
+
 /* ---- Close Mobile Menu Function ---- */
 function closeMobileMenu() {
-  console.log('Closing mobile menu');
+  console.log('Closing menu...');
   if (hamburger) {
     hamburger.classList.remove('active');
     hamburger.setAttribute('aria-expanded', 'false');
   }
   if (navLinksContainer) navLinksContainer.classList.remove('active');
-  if (menuOverlay) menuOverlay.classList.remove('active');
+  if (menuOverlay) {
+    menuOverlay.classList.remove('active');
+    console.log('Overlay removed');
+  }
   document.body.classList.remove('menu-open');
 }
 
 /* ---- Hamburger Menu Toggle ---- */
 if (hamburger && navLinksContainer) {
-  console.log('Hamburger menu initialized');
-  
   hamburger.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    
-    console.log('Hamburger clicked');
     
     const isActive = hamburger.classList.contains('active');
     
     if (isActive) {
       // Close menu
+      console.log('Closing menu via hamburger');
       hamburger.classList.remove('active');
       hamburger.setAttribute('aria-expanded', 'false');
       navLinksContainer.classList.remove('active');
-      if (menuOverlay) menuOverlay.classList.remove('active');
+      if (menuOverlay) {
+        menuOverlay.classList.remove('active');
+        console.log('Overlay hidden');
+      }
       document.body.classList.remove('menu-open');
-      console.log('Menu closed');
     } else {
       // Open menu
+      console.log('Opening menu via hamburger');
       hamburger.classList.add('active');
       hamburger.setAttribute('aria-expanded', 'true');
       navLinksContainer.classList.add('active');
-      if (menuOverlay) menuOverlay.classList.add('active');
+      if (menuOverlay) {
+        menuOverlay.classList.add('active');
+        console.log('Overlay shown, classes:', menuOverlay.className);
+      }
       document.body.classList.add('menu-open');
-      console.log('Menu opened');
     }
   }, false);
 
@@ -181,8 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         e.stopPropagation();
         
-        console.log('Navigation link clicked');
-        
         // Close mobile menu first
         if (typeof closeMobileMenu === 'function') {
           closeMobileMenu();
@@ -194,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
           const sectionIds = ['hero', 'about', 'works', 'services', 'contact'];
           const sectionIndex = sectionIds.indexOf(id);
           if (sectionIndex >= 0) {
-            console.log('Scrolling to section:', id);
             // Small delay to allow menu to close smoothly
             setTimeout(() => {
               scrollToSection(sectionIndex);
