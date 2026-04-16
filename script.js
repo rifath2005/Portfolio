@@ -9,6 +9,49 @@ console.log('Menu elements found:', {
   menuOverlay: !!menuOverlay
 });
 
+/* ---- Contact Modal ---- */
+const contactModal = document.getElementById('contactModal');
+const contactBtn = document.querySelector('.contact-btn');
+const modalOverlay = document.querySelector('.contact-modal-overlay');
+const modalClose = document.querySelector('.contact-modal-close');
+
+// Open modal when clicking Contact Me button
+if (contactBtn && contactModal) {
+  contactBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('Opening contact modal');
+    contactModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+}
+
+// Close modal when clicking overlay
+if (modalOverlay) {
+  modalOverlay.addEventListener('click', function() {
+    console.log('Closing modal via overlay');
+    contactModal.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+}
+
+// Close modal when clicking close button
+if (modalClose) {
+  modalClose.addEventListener('click', function() {
+    console.log('Closing modal via close button');
+    contactModal.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && contactModal && contactModal.classList.contains('active')) {
+    console.log('Closing modal via Escape key');
+    contactModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
 /* ---- Close Mobile Menu Function ---- */
 function closeMobileMenu() {
   console.log('Closing menu...');
@@ -275,4 +318,83 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     window.addEventListener('loaderComplete', initEffects, { once: true });
   }
+  
+  /* ---- Contact Links - Ensure they work properly ---- */
+  const contactLinks = document.querySelectorAll('.contact-link');
+  
+  console.log('Contact links found:', contactLinks.length);
+  
+  contactLinks.forEach((link, index) => {
+    console.log(`Link ${index}:`, link.getAttribute('href'));
+    
+    // Add stagger animation on load
+    link.style.opacity = '0';
+    link.style.transform = 'translateX(-30px)';
+    
+    setTimeout(() => {
+      link.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      link.style.opacity = '1';
+      link.style.transform = 'translateX(0)';
+    }, 200 + (index * 100));
+    
+    // Handle click with ripple effect
+    link.addEventListener('click', function(e) {
+      console.log('Contact link clicked:', this.getAttribute('href'));
+      
+      // Create visual ripple effect
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple-effect');
+      
+      const rect = this.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = e.clientX - rect.left - size / 2;
+      const y = e.clientY - rect.top - size / 2;
+      
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      
+      this.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+      
+      // Get the href
+      const href = this.getAttribute('href');
+      
+      // Handle different link types
+      if (href) {
+        if (href.startsWith('mailto:')) {
+          // Email link - let browser handle it
+          console.log('Opening email client');
+          window.location.href = href;
+        } else if (href.startsWith('tel:')) {
+          // Phone link - let browser handle it
+          console.log('Opening phone dialer');
+          window.location.href = href;
+        } else if (href.startsWith('http')) {
+          // External link - open in new tab
+          console.log('Opening external link in new tab');
+          window.open(href, '_blank', 'noopener,noreferrer');
+          e.preventDefault();
+        }
+      }
+    }, true); // Use capture phase to ensure we catch the event first
+    
+    // Add magnetic effect on hover (desktop only)
+    if (window.innerWidth > 768) {
+      link.addEventListener('mousemove', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        this.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+      });
+      
+      link.addEventListener('mouseleave', function() {
+        this.style.transform = 'translate(0, 0)';
+      });
+    }
+  });
 });
