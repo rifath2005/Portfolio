@@ -9,24 +9,131 @@ console.log('Menu elements found:', {
   menuOverlay: !!menuOverlay
 });
 
+/* ---- Theme Toggle - Hanging Bulb ---- */
+const bulbWrapper = document.getElementById('bulbWrapper');
+const themeBulb = document.getElementById('themeBulb');
+const bulbRope = document.querySelector('.bulb-rope');
+
+let isDragging = false;
+let startX, startY, currentX = 0, currentY = 0;
+let swingAngle = 0;
+
+// Check for saved theme preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  document.body.classList.add('dark-theme');
+}
+
+// Toggle theme on click
+if (themeBulb) {
+  themeBulb.addEventListener('click', function(e) {
+    if (!isDragging) {
+      document.body.classList.toggle('dark-theme');
+      
+      // Save preference
+      if (document.body.classList.contains('dark-theme')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+      
+      // Add swing animation
+      bulbWrapper.classList.add('swinging');
+      setTimeout(() => {
+        bulbWrapper.classList.remove('swinging');
+      }, 1000);
+    }
+  });
+}
+
+// Dragging functionality
+if (bulbWrapper) {
+  bulbWrapper.addEventListener('mousedown', startDrag);
+  bulbWrapper.addEventListener('touchstart', startDrag);
+  
+  document.addEventListener('mousemove', drag);
+  document.addEventListener('touchmove', drag);
+  
+  document.addEventListener('mouseup', stopDrag);
+  document.addEventListener('touchend', stopDrag);
+}
+
+function startDrag(e) {
+  isDragging = true;
+  const touch = e.touches ? e.touches[0] : e;
+  startX = touch.clientX - currentX;
+  startY = touch.clientY - currentY;
+  bulbWrapper.style.transition = 'none';
+  bulbRope.style.transition = 'none';
+}
+
+function drag(e) {
+  if (!isDragging) return;
+  e.preventDefault();
+  
+  const touch = e.touches ? e.touches[0] : e;
+  currentX = touch.clientX - startX;
+  currentY = touch.clientY - startY;
+  
+  // Limit movement
+  const maxMove = 100;
+  currentX = Math.max(-maxMove, Math.min(maxMove, currentX));
+  currentY = Math.max(-50, Math.min(maxMove, currentY));
+  
+  // Calculate swing angle
+  swingAngle = Math.atan2(currentX, 100) * (180 / Math.PI);
+  
+  // Apply transform
+  bulbWrapper.style.transform = `translate(calc(-50% + ${currentX}px), ${currentY}px)`;
+  bulbRope.style.transform = `translateX(-50%) rotate(${swingAngle}deg)`;
+}
+
+function stopDrag() {
+  if (!isDragging) return;
+  isDragging = false;
+  
+  // Animate back to center
+  bulbWrapper.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  bulbRope.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  
+  bulbWrapper.style.transform = 'translateX(-50%)';
+  bulbRope.style.transform = 'translateX(-50%) rotate(0deg)';
+  
+  currentX = 0;
+  currentY = 0;
+  swingAngle = 0;
+}
+
 /* ---- Contact Modal ---- */
 const contactModal = document.getElementById('contactModal');
 const contactBtn = document.querySelector('.contact-btn');
 const modalOverlay = document.querySelector('.contact-modal-overlay');
 const modalClose = document.querySelector('.contact-modal-close');
 
+console.log('Contact Modal Elements:', {
+  contactModal: !!contactModal,
+  contactBtn: !!contactBtn,
+  modalOverlay: !!modalOverlay,
+  modalClose: !!modalClose
+});
+
 // Open modal when clicking Contact Me button
 if (contactBtn && contactModal) {
+  console.log('Setting up contact button click handler');
   contactBtn.addEventListener('click', function(e) {
     e.preventDefault();
-    console.log('Opening contact modal');
+    e.stopPropagation();
+    console.log('Contact button clicked! Opening modal...');
     contactModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    console.log('Modal classes:', contactModal.className);
   });
+} else {
+  console.error('Contact button or modal not found!', { contactBtn, contactModal });
 }
 
 // Close modal when clicking overlay
-if (modalOverlay) {
+if (modalOverlay && contactModal) {
   modalOverlay.addEventListener('click', function() {
     console.log('Closing modal via overlay');
     contactModal.classList.remove('active');
@@ -35,7 +142,7 @@ if (modalOverlay) {
 }
 
 // Close modal when clicking close button
-if (modalClose) {
+if (modalClose && contactModal) {
   modalClose.addEventListener('click', function() {
     console.log('Closing modal via close button');
     contactModal.classList.remove('active');

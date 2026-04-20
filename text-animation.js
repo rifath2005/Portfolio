@@ -11,7 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Clear the headline
       mainHeadline.innerHTML = '';
+      
+      // Remove inline styles and make visible
+      mainHeadline.removeAttribute('style');
       mainHeadline.style.opacity = '1';
+      mainHeadline.style.visibility = 'visible';
       
       // Create letter spans
       letters.forEach((letter, index) => {
@@ -31,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const totalLetters = letterElements.length;
       const center = Math.floor(totalLetters / 2);
       
-      // Start animation after a delay (wait for loader to complete)
+      // Start animation immediately
       setTimeout(() => {
         letterElements.forEach((letter, index) => {
           // Calculate distance from center
@@ -46,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             letter.style.opacity = '1';
           }, delay);
         });
-      }, 600); // Wait 600ms after loader completes
+      }, 100); // Start quickly after setup
     }
   }
   
