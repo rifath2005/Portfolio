@@ -11,9 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const target = { x: 0, y: 0 };
   let animationFrameId = null;
   let autoRotation = 0; // Auto-rotation angle
+  const ROTATION_SPEED = 1.5; // Constant rotation speed (degrees per frame) - FIXED SPEED
 
-  // Track mouse movement
+  // Track mouse movement - normalized for all devices
   const handleMouseMove = (e) => {
+    // Normalize mouse position to -1 to 1 range (device independent)
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = (e.clientY / window.innerHeight) * 2 - 1;
   };
@@ -22,21 +24,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Animate orbit based on mouse position + auto-rotation
   function animateOrbit() {
-    // Auto-rotation speed (negative for opposite direction)
-    autoRotation -= 2.5; // Degrees per frame (faster spin)
+    // CONSTANT auto-rotation speed (independent of mouse speed or DPI)
+    autoRotation += ROTATION_SPEED; // Fixed degrees per frame
 
-    // Smooth interpolation for mouse
-    target.x += (mouse.y * 0.6 - target.x) * 0.05;
-    target.y += (mouse.x * 0.6 - target.y) * 0.05;
+    // Smooth interpolation for mouse (only affects tilt, not rotation speed)
+    target.x += (mouse.y * 0.3 - target.x) * 0.05; // Reduced influence
+    target.y += (mouse.x * 0.3 - target.y) * 0.05; // Reduced influence
 
     // Calculate rotation angles
-    const phi = Math.PI / 2 - target.x; // Vertical angle
-    const theta = target.y + Math.PI; // Horizontal angle
+    const phi = Math.PI / 2 - target.x; // Vertical angle (tilt)
+    const theta = target.y; // Horizontal angle (slight influence)
 
-    // Apply rotation with mouse influence + auto-rotation
+    // Apply rotation with CONSTANT speed + mouse tilt
     if (loaderOrbitInner) {
       const rotateX = (phi * 180 / Math.PI) - 45; // Base angle 45deg tilt
-      const rotateY = (theta * 180 / Math.PI) + autoRotation;
+      const rotateY = autoRotation + (theta * 10); // Constant rotation + slight mouse influence
       
       loaderOrbitInner.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
     }

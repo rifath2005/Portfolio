@@ -51,25 +51,39 @@
     
     <!-- Theme Toggle - Hanging Bulb -->
     <div class="theme-toggle-container">
-      <svg class="bulb-rope" width="2" height="100" viewBox="0 0 2 100">
-        <line x1="1" y1="0" x2="1" y2="100" stroke="#333" stroke-width="2"/>
+      <svg class="bulb-rope" width="4" height="100" viewBox="0 0 4 100" preserveAspectRatio="none">
+        <path id="ropePath" d="M 2 0 Q 2 50 2 100" stroke="#8B7355" stroke-width="3" fill="none" stroke-linecap="round"/>
       </svg>
       <div class="bulb-wrapper" id="bulbWrapper">
         <div class="bulb" id="themeBulb">
-          <div class="bulb-glow"></div>
-          <svg class="bulb-svg" viewBox="0 0 100 140" width="50" height="70">
-            <!-- Bulb glass -->
-            <ellipse cx="50" cy="50" rx="35" ry="45" fill="currentColor" class="bulb-glass"/>
-            <!-- Bulb base -->
-            <rect x="40" y="90" width="20" height="8" fill="#888" rx="2"/>
-            <rect x="38" y="98" width="24" height="6" fill="#666" rx="1"/>
-            <rect x="36" y="104" width="28" height="8" fill="#888" rx="2"/>
-            <!-- Filament (visible when on) -->
-            <path d="M 45 40 Q 50 50 55 40 Q 50 30 45 40" 
-                  fill="none" 
-                  stroke="#fff" 
+          <svg class="bulb-svg" viewBox="0 0 100 150" width="40" height="60">
+            <!-- Bulb base at TOP (connected to wire) -->
+            <circle cx="50" cy="8" r="8" fill="#666666" class="bulb-contact"/>
+            <circle cx="50" cy="8" r="4" fill="#444444"/>
+            
+            <!-- Metal screw base (threaded sections) -->
+            <rect x="38" y="12" width="24" height="6" fill="#A0A0A0" rx="1" class="bulb-base"/>
+            <rect x="36" y="18" width="28" height="5" fill="#888888" rx="1" class="bulb-base"/>
+            <rect x="38" y="23" width="24" height="6" fill="#A0A0A0" rx="1" class="bulb-base"/>
+            <rect x="36" y="29" width="28" height="5" fill="#888888" rx="1" class="bulb-base"/>
+            <rect x="38" y="34" width="24" height="6" fill="#A0A0A0" rx="1" class="bulb-base"/>
+            
+            <!-- Main bulb glass (pointing DOWN) -->
+            <ellipse cx="50" cy="75" rx="38" ry="48" class="bulb-glass"/>
+            
+            <!-- Glass highlight for depth -->
+            <ellipse cx="35" cy="60" rx="15" cy="20" fill="#ffffff" opacity="0.15" class="bulb-highlight"/>
+            
+            <!-- Filament holder -->
+            <line x1="50" y1="40" x2="50" y2="50" stroke="#666" stroke-width="1.5" class="bulb-holder"/>
+            
+            <!-- Filament - zigzag pattern (only visible when lit) -->
+            <path class="bulb-filament" 
+                  d="M 40 55 L 45 65 L 40 75 L 45 85 L 40 95 M 60 55 L 55 65 L 60 75 L 55 85 L 60 95 M 45 60 L 55 60 M 45 70 L 55 70 M 45 80 L 55 80 M 45 90 L 55 90" 
+                  stroke="#FFA500" 
                   stroke-width="2" 
-                  class="bulb-filament"
+                  fill="none"
+                  stroke-linecap="round"
                   opacity="0"/>
           </svg>
         </div>
@@ -93,7 +107,7 @@
         <li><a href="#contact" class="flip-text"><span>[</span> <span>C</span><span>o</span><span>n</span><span>n</span><span>e</span><span>c</span><span>t</span> <span>]</span></a></li>
       </ul>
       <div class="header-actions">
-        <a href="https://drive.google.com/file/d/1lOfgIyJHs6WLXh1ejUxVIg7C72HAYPGd/view?usp=sharing" 
+        <a href="https://drive.google.com/file/d/1Ideqdvd4-2zgIZY7gpit7BLNx0oaY8Tl/view?usp=sharing" 
            target="_blank" 
            rel="noopener noreferrer" 
            class="download-btn"

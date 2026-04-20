@@ -64,7 +64,6 @@ function startDrag(e) {
   startX = touch.clientX - currentX;
   startY = touch.clientY - currentY;
   bulbWrapper.style.transition = 'none';
-  bulbRope.style.transition = 'none';
 }
 
 function drag(e) {
@@ -76,16 +75,36 @@ function drag(e) {
   currentY = touch.clientY - startY;
   
   // Limit movement
-  const maxMove = 100;
+  const maxMove = 120;
   currentX = Math.max(-maxMove, Math.min(maxMove, currentX));
-  currentY = Math.max(-50, Math.min(maxMove, currentY));
+  currentY = Math.max(-30, Math.min(maxMove, currentY));
   
   // Calculate swing angle
   swingAngle = Math.atan2(currentX, 100) * (180 / Math.PI);
   
-  // Apply transform
+  // Apply transform to bulb
   bulbWrapper.style.transform = `translate(calc(-50% + ${currentX}px), ${currentY}px)`;
-  bulbRope.style.transform = `translateX(-50%) rotate(${swingAngle}deg)`;
+  
+  // Update rope path to create curved effect
+  if (bulbRope) {
+    const ropePath = bulbRope.querySelector('#ropePath');
+    if (ropePath) {
+      // Calculate rope length based on pull distance
+      const ropeLength = 100 + currentY * 0.5; // Extend rope when pulled down
+      
+      // Create curved path using quadratic bezier
+      // Control point creates the curve effect
+      const controlX = 2 + currentX * 0.5; // Curve follows horizontal movement
+      const controlY = ropeLength * 0.5 + Math.abs(currentX) * 0.2; // Curve depth
+      
+      const newPath = `M 2 0 Q ${controlX} ${controlY} ${2 + currentX * 0.8} ${ropeLength}`;
+      ropePath.setAttribute('d', newPath);
+      
+      // Update rope height
+      bulbRope.setAttribute('height', ropeLength);
+      bulbRope.setAttribute('viewBox', `0 0 4 ${ropeLength}`);
+    }
+  }
 }
 
 function stopDrag() {
@@ -94,10 +113,26 @@ function stopDrag() {
   
   // Animate back to center
   bulbWrapper.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-  bulbRope.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
   
   bulbWrapper.style.transform = 'translateX(-50%)';
-  bulbRope.style.transform = 'translateX(-50%) rotate(0deg)';
+  
+  // Animate rope back to straight
+  if (bulbRope) {
+    const ropePath = bulbRope.querySelector('#ropePath');
+    if (ropePath) {
+      // Smooth transition back to straight line
+      setTimeout(() => {
+        ropePath.style.transition = 'd 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        ropePath.setAttribute('d', 'M 2 0 Q 2 50 2 100');
+        bulbRope.setAttribute('height', '100');
+        bulbRope.setAttribute('viewBox', '0 0 4 100');
+        
+        setTimeout(() => {
+          ropePath.style.transition = '';
+        }, 800);
+      }, 50);
+    }
+  }
   
   currentX = 0;
   currentY = 0;
