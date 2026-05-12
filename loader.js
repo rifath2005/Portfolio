@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const target = { x: 0, y: 0 };
   let animationFrameId = null;
   let autoRotation = 0; // Auto-rotation angle
-  const ROTATION_SPEED = 1.5; // Constant rotation speed (degrees per frame) - FIXED SPEED
+  const ROTATION_SPEED = 2.0; // Fixed rotation speed (degrees per frame) - DEVICE INDEPENDENT
 
   // Track mouse movement - normalized for all devices
   const handleMouseMove = (e) => {
@@ -24,21 +24,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Animate orbit based on mouse position + auto-rotation
   function animateOrbit() {
-    // CONSTANT auto-rotation speed (independent of mouse speed or DPI)
-    autoRotation += ROTATION_SPEED; // Fixed degrees per frame
+    // CONSTANT auto-rotation speed (completely independent of mouse)
+    autoRotation += ROTATION_SPEED; // Fixed 2.0 degrees per frame
 
-    // Smooth interpolation for mouse (only affects tilt, not rotation speed)
-    target.x += (mouse.y * 0.3 - target.x) * 0.05; // Reduced influence
-    target.y += (mouse.x * 0.3 - target.y) * 0.05; // Reduced influence
+    // Smooth interpolation for mouse (ONLY affects tilt, NOT rotation speed)
+    target.x += (mouse.y * 0.2 - target.x) * 0.05; // Only for vertical tilt
+    target.y += (mouse.x * 0.2 - target.y) * 0.05; // Only for horizontal tilt
 
-    // Calculate rotation angles
-    const phi = Math.PI / 2 - target.x; // Vertical angle (tilt)
-    const theta = target.y; // Horizontal angle (slight influence)
+    // Calculate tilt angles (mouse only affects viewing angle, not rotation)
+    const phi = Math.PI / 2 - target.x; // Vertical tilt angle
+    const theta = target.y; // Horizontal tilt angle
 
-    // Apply rotation with CONSTANT speed + mouse tilt
+    // Apply rotation with FIXED speed (mouse does NOT affect rotation speed)
     if (loaderOrbitInner) {
-      const rotateX = (phi * 180 / Math.PI) - 45; // Base angle 45deg tilt
-      const rotateY = autoRotation + (theta * 10); // Constant rotation + slight mouse influence
+      const rotateX = (phi * 180 / Math.PI) - 45; // Base tilt 45deg + mouse tilt
+      const rotateY = autoRotation; // PURE constant rotation - NO mouse influence
       
       loaderOrbitInner.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
     }

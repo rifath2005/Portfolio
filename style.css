@@ -67,15 +67,15 @@ body.dark-theme .bio-text {
   color: var(--text-primary) !important;
 }
 
-/* About Section Dark Theme - Keep Black */
+/* About Section - Follows theme automatically */
 body.dark-theme .section--about {
-  background: #000000 !important;
-  color: #ffffff !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
 }
 
 body.dark-theme .section--about .about-title,
 body.dark-theme .section--about .about-content p {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 /* Works Section Dark Theme */
@@ -102,16 +102,16 @@ body.dark-theme .work-card__block p {
   color: var(--text-secondary) !important;
 }
 
-/* Services Section Dark Theme - Keep Black */
+/* Services Section - Follows theme automatically */
 body.dark-theme .section--services {
-  background: #000000 !important;
-  color: #ffffff !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
 }
 
 body.dark-theme .section--services .section__title,
 body.dark-theme .section--services .service-block h4,
 body.dark-theme .section--services .service-block li {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 /* Contact Section Dark Theme */
@@ -670,6 +670,11 @@ body.loaded .hero {
   transform: translateX(-50%);
 }
 
+/* Hide mobile-only items on desktop */
+.mobile-only {
+  display: none;
+}
+
 .nav-links a {
   text-decoration: none;
   color: var(--text-color);
@@ -1223,8 +1228,7 @@ body.loaded .hero {
   padding-top: 120px;
   padding-bottom: 50px;
   background: var(--bg-secondary);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: visible;
   visibility: visible !important;
   transition: background-color 0.4s ease;
 }
@@ -1591,14 +1595,13 @@ body.dark-theme .photo-container img {
   padding-bottom: calc(clamp(3rem, 8vw, 6rem) + 50px);
   border-top: 1px solid var(--border-color);
   min-height: 100vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
 .section--about {
   padding: 0;
-  border: none;
-  background: #000000 !important;
+  border-top: 1px solid var(--border-color);
+  background: #ffffff !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -2122,6 +2125,37 @@ body.menu-open {
   
   .nav-links a:hover {
     background: rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Mobile download link styling */
+  .mobile-only {
+    display: block !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .mobile-download-link {
+    font-size: 1.2rem;
+    display: block;
+    padding: 1rem 0.5rem;
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    transition: background 0.2s ease;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  
+  .mobile-download-link:active {
+    background: rgba(0, 0, 0, 0.15);
+    transform: scale(0.98);
+  }
+  
+  .mobile-download-link:hover {
+    background: rgba(0, 0, 0, 0.08);
   }
   
   /* Disable flip animation on mobile */
@@ -2727,36 +2761,8 @@ body.menu-open {
 
 
 /* ==========================================================================
-   PARALLAX SCROLL EFFECTS
+   SMOOTH SCROLLING & ACCESSIBILITY
    ========================================================================== */
-.hero {
-  will-change: transform;
-}
-
-.main-headline {
-  will-change: transform;
-  transition: transform 0.1s ease-out;
-}
-
-.photo-container {
-  will-change: transform;
-  transition: transform 0.1s ease-out;
-}
-
-.services-list {
-  will-change: transform;
-  transition: transform 0.1s ease-out;
-}
-
-.location-text {
-  will-change: transform;
-  transition: transform 0.1s ease-out;
-}
-
-.section {
-  will-change: transform, opacity;
-  transition: transform 0.1s ease-out, opacity 0.3s ease-out;
-}
 
 /* Smooth scrolling for all elements */
 html {
@@ -2766,9 +2772,7 @@ html {
 }
 
 /* Better touch scrolling on mobile */
-body,
-.hero,
-.section {
+body {
   -webkit-overflow-scrolling: touch;
 }
 
@@ -2776,86 +2780,73 @@ body,
 body {
   overflow-x: hidden;
   max-width: 100vw;
+  overflow-y: auto;
 }
 
 .portfolio {
   overflow-x: hidden;
   max-width: 100vw;
+  overflow-y: visible;
 }
 
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .main-headline,
-  .photo-container,
-  .services-list,
-  .location-text,
-  .section {
-    will-change: auto;
-    transition: none;
-    transform: none !important;
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
 
 /* ==========================================================================
-   FULL PAGE SCROLL & STORYTELLING EFFECT
+   STATIC PAGE LAYOUT - All sections flow naturally
    ========================================================================== */
 
-/* Hero section - White background */
+/* Hero section - Uses theme variables */
 .hero {
   background: var(--bg-secondary);
   color: var(--text-primary);
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  z-index: 1;
+  min-height: 100vh;
 }
 
-/* About section - Black background */
+/* About section - Light theme (uses theme variables) */
 .section--about {
-  background: #000000;
-  color: #ffffff;
-  position: fixed;
-  top: 0;
-  left: 0;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  position: relative;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 1;
+  min-height: 100vh;
 }
 
 .section--about .about-title {
-  color: #ffffff;
-  background: #000000;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
 }
 
 .section--about .about-content {
-  background: #000000;
-  color: #ffffff;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .section--about .about-content p {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
-/* Works section - White background */
+/* Works section - Uses theme variables */
 .section--works {
   background: var(--bg-secondary);
   color: var(--text-primary);
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 1;
+  min-height: 100vh;
 }
 
 .section--works .section__title {
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .section--works .work-card {
@@ -2865,137 +2856,85 @@ body {
 }
 
 .section--works .work-card__title {
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .section--works .work-card__block h5 {
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .section--works .work-card__block p {
-  color: #666666;
+  color: var(--text-secondary);
 }
 
-/* Services section - Black background */
+/* Services section - Light theme (uses theme variables) */
 .section--services {
-  background: #000000;
-  color: #ffffff;
-  position: fixed;
-  top: 0;
-  left: 0;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  position: relative;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 1;
+  min-height: 100vh;
 }
 
 .section--services .section__title {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .section--services .service-block {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .section--services .service-block h4 {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
 .section--services .service-block li {
-  color: #cccccc;
+  color: var(--text-secondary);
 }
 
 .section--services .service-block li::before {
-  color: #ffffff;
+  color: var(--text-primary);
 }
 
-/* Contact section - White background */
+/* Contact section - Uses theme variables */
 .section--contact {
   background: var(--bg-secondary);
   color: var(--text-primary);
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100vh;
-  overflow-y: auto;
-  z-index: 1;
+  min-height: 100vh;
 }
 
 .section--contact .section__title {
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .section--contact .contact-intro {
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .section--contact .contact-link {
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .section--contact .contact-link:hover {
   opacity: 0.6;
 }
 
-/* Section indicators */
+/* Remove section indicators for static layout */
 .section-indicator {
-  position: fixed;
-  top: 50%;
-  right: 3rem;
-  transform: translateY(-50%);
-  font-family: var(--font-display);
-  font-size: 8rem;
-  font-weight: 400;
-  opacity: 0.05;
-  z-index: 5;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.hero .section-indicator {
-  color: #000000;
-}
-
-.section--about .section-indicator,
-.section--services .section-indicator {
-  color: #ffffff;
-}
-
-.section--works .section-indicator,
-.section--contact .section-indicator {
-  color: #000000;
-}
-
-/* 3D Transform effects */
-.hero,
-.section {
-  perspective: 1000px;
-  transform-style: preserve-3d;
-}
-
-.main-headline,
-.section__title,
-.about-title {
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease-out;
-}
-
-.hero-middle,
-.work-grid,
-.services-grid,
-.contact-content {
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease-out;
+  display: none;
 }
 
 /* Smooth transitions */
 body {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .portfolio {
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 /* Navigation active state */
@@ -3007,36 +2946,25 @@ body {
 
 /* Footer adjustments for fixed sections - REMOVED */
 
-/* Responsive adjustments for full page scroll */
+/* Responsive adjustments for static layout */
 @media (max-width: 768px) {
-  .section-indicator {
-    right: 1rem;
-    font-size: 3.5rem;
-    opacity: 0.03;
-  }
-  
   .hero,
   .section {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow-y: visible;
   }
   
-  /* Ensure sections are scrollable on mobile */
+  /* Ensure sections are not fixed on mobile */
   .section--about,
   .section--works,
   .section--services,
   .section--contact {
-    overflow-y: auto !important;
-    height: 100vh;
+    position: relative !important;
+    height: auto !important;
   }
 }
 
 @media (max-width: 480px) {
-  .section-indicator {
-    right: 0.5rem;
-    font-size: 2.5rem;
-    opacity: 0.02;
-  }
+  /* Mobile optimizations */
 }
 
 /* Disable parallax on reduced motion */
@@ -3069,26 +2997,26 @@ body {
   color: var(--text-primary) !important;
 }
 
-/* About Section - Black background with white text */
+/* About Section - Uses theme variables */
 .section--about {
-  background: #000000 !important;
+  background: var(--bg-secondary) !important;
 }
 
 .section--about .about-title {
-  color: #ffffff !important;
-  background: #000000 !important;
+  color: var(--text-primary) !important;
+  background: var(--bg-secondary) !important;
 }
 
 .section--about .about-title .letter {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 .section--about .about-content {
-  background: #000000 !important;
+  background: var(--bg-secondary) !important;
 }
 
 .section--about .about-content p {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 /* Works Section - Uses theme variables */
@@ -3118,25 +3046,25 @@ body {
   opacity: 0.8 !important;
 }
 
-/* Services Section - Black background with white text */
+/* Services Section - Uses theme variables */
 .section--services {
-  background: #000000 !important;
+  background: var(--bg-secondary) !important;
 }
 
 .section--services .section__title {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 .section--services .service-block h4 {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 .section--services .service-block li {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 .section--services .service-block li::before {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 /* Contact Section - Uses theme variables */
