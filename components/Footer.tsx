@@ -30,7 +30,9 @@ export default function Footer() {
         <div className="flex-1">
           <h2 className="text-sm font-mono tracking-widest text-accent mb-8">CHAPTER 05 — CONTACT</h2>
           <h3 className="text-4xl md:text-7xl font-bold tracking-tighter leading-[0.9] mb-8">
-            Let's build<br />something.
+            <Magnetic as="div" className="inline-block hover:text-accent transition-colors cursor-pointer">
+              Let's build<br />something.
+            </Magnetic>
           </h3>
           <p className="text-fg-muted text-lg max-w-md">
             Available for new opportunities. Reach out if you want to collaborate on AI systems, scalable infrastructure, or digital experiences.

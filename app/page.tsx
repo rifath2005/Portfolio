@@ -7,6 +7,7 @@ import ExperienceTimeline from "@/components/ExperienceTimeline";
 import ProjectCard from "@/components/ProjectCard";
 import SkillsSolarSystem from "@/components/SkillsSolarSystem";
 import Footer from "@/components/Footer";
+import SectionDivider from "@/components/SectionDivider";
 
 const projects: any[] = [
   {
@@ -97,6 +98,8 @@ export default function Home() {
         <ExperienceTimeline />
       </section>
       
+      <SectionDivider />
+
       {/* Works Section */}
       <section className="relative min-h-screen px-8 md:px-[10%] py-32" id="works">
         <div className="max-w-6xl mx-auto mb-16">
@@ -110,6 +113,8 @@ export default function Home() {
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* Skills / Architecture Section */}
       <section className="relative min-h-[100vh] px-8 md:px-[10%] py-32 bg-bg-alt/50" id="skills">
         <div className="max-w-6xl mx-auto mb-16 text-center">
@@ -120,6 +125,8 @@ export default function Home() {
           <SkillsSolarSystem />
         </div>
       </section>
+
+      <SectionDivider />
 
       <Footer />
     </main>
