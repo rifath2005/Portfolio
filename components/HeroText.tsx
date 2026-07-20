@@ -61,10 +61,10 @@ export default function HeroText() {
       </p>
       
       <div className="hero-sub mt-12 flex flex-wrap gap-6">
-        <Magnetic as="a" href="#works" className="inline-flex rounded-full bg-fg text-bg px-8 py-4 font-medium hover:bg-accent hover:text-white transition-colors cursor-pointer">
+        <Magnetic as="a" href="#works" className="inline-flex rounded-full border border-white/20 bg-white/5 px-8 py-4 font-medium hover:bg-white hover:text-black transition-colors cursor-pointer">
           Explore Works
         </Magnetic>
-        <Magnetic as="a" href="#contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 font-medium hover:border-accent hover:text-accent transition-colors cursor-pointer">
+        <Magnetic as="a" href="#contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 font-medium hover:border-white hover:bg-white/10 transition-colors cursor-pointer">
           Initiate Connection ↗
         </Magnetic>
       </div>
