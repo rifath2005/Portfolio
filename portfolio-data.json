@@ -1,0 +1,147 @@
+{
+  "personal": {
+    "name": "Rifath M",
+    "title": "AI ENGINEER",
+    "services": [
+      "AI Engineering",
+      "Full Stack Development",
+      "Product Building"
+    ],
+    "location": {
+      "city": "BASED",
+      "state": "IN",
+      "country": "INDIA"
+    },
+    "bio": "I build intelligent full-stack applications — from ML models to production-ready systems",
+    "resumeUrl": "resume.pdf"
+  },
+  "contact": {
+    "email": "syedrifathm@gmail.com",
+    "phone": "+91 82200 84050",
+    "linkedin": "https://www.linkedin.com/in/syedrifathm/",
+    "github": "https://github.com/rifath2005",
+    "formspreeId": "YOUR_FORMSPREE_ID_HERE"
+  },
+  "skills": [
+    {
+      "category": "FRONT-END DEVELOPMENT",
+      "items": [
+        "HTML5, CSS3, and modern web standards",
+        "Bootstrap framework for responsive design",
+        "JavaScript and interactive web applications"
+      ]
+    },
+    {
+      "category": "PROGRAMMING LANGUAGES",
+      "items": [
+        "Node.js for backend development",
+        "Python for scripting and automation",
+        "C and C++ for system programming"
+      ]
+    },
+    {
+      "category": "DATABASE & BACKEND",
+      "items": [
+        "SQL database design and management",
+        "RESTful API development",
+        "Server-side application architecture"
+      ]
+    },
+    {
+      "category": "AI & MACHINE LEARNING",
+      "items": [
+        "Natural Language Processing (NLP)",
+        "Machine Learning Foundations",
+        "Data modeling and pipeline integration"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "date": "2023 - Present",
+      "role": "B.Tech IT Student",
+      "company": "Rathinam Technical Campus",
+      "description": "Specializing in software engineering, AI, and modern web development."
+    },
+    {
+      "date": "2024",
+      "role": "Software Development Intern",
+      "company": "Marcello Tech",
+      "description": "Worked extensively with Node.js to build backend systems. Gained hands-on experience in modern web technologies and software development practices."
+    }
+  ],
+  "projects": [
+    {
+      "title": "AUTOMATION IN MCP",
+      "description": "Built automated workflows using MCP Servers with Cursor IDE and Pipedream to orchestrate tool interactions and streamline task execution. Reduced task execution time by 60% through automated workflows.",
+      "tags": [
+        "MCP Servers",
+        "Cursor IDE",
+        "Pipedream",
+        "Node.js"
+      ],
+      "imagePlaceholder": "AUTOMATION IN MCP",
+      "caseStudyUrl": "#"
+    },
+    {
+      "title": "NOTINQ – CANTEEN MANAGEMENT SYSTEM",
+      "description": "Developed a QR-based ordering and payment system enabling users to pre-order food. Eliminated 15-minute average wait times and improved operational efficiency.",
+      "tags": [
+        "Node.js",
+        "JavaScript",
+        "SQL",
+        "HTML/CSS"
+      ],
+      "imagePlaceholder": "NOTINQ CMS",
+      "caseStudyUrl": "#"
+    },
+    {
+      "title": "PROJECT THREE TITLE",
+      "description": "Add details of your third project here. Focus on the problem, your approach, tech stack, and quantifiable outcomes.",
+      "tags": [
+        "React",
+        "Python",
+        "FastAPI"
+      ],
+      "imagePlaceholder": "PROJECT 3",
+      "caseStudyUrl": "#"
+    },
+    {
+      "title": "PROJECT FOUR TITLE",
+      "description": "Add details of your fourth project here. Focus on the problem, your approach, tech stack, and quantifiable outcomes.",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "TailwindCSS"
+      ],
+      "imagePlaceholder": "PROJECT 4",
+      "caseStudyUrl": "#"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "AWS Academy Graduate - ML for NLP",
+      "issuer": "Amazon Web Services",
+      "platform": "aws",
+      "verificationUrl": "https://drive.google.com/file/d/1N7Wppg9EcqsNtgh2KQRcCyd_5LSyJHNQ/view"
+    },
+    {
+      "title": "AWS Academy - ML Foundation",
+      "issuer": "Amazon Web Services",
+      "platform": "aws",
+      "verificationUrl": "https://drive.google.com/file/d/15SvTzDio_DQvHyXVwwJ2sYW2fAfT_nI9/view"
+    },
+    {
+      "title": "Introduction to Database",
+      "issuer": "NxtWave",
+      "platform": "nxtwave",
+      "verificationUrl": "https://certificates.ccbp.in/academy/introduction-to-databases?id=ITYSBGZUTS"
+    },
+    {
+      "title": "Build Your Own Static Website",
+      "issuer": "NxtWave",
+      "platform": "nxtwave",
+      "verificationUrl": "https://certificates.ccbp.in/academy/static-website?id=BDFRYCLUTB"
+    }
+  ]
+}

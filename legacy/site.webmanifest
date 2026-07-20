@@ -1,0 +1,20 @@
+{
+  "name": "Rifath M - AI Engineer & Full Stack Developer",
+  "short_name": "Rifath M",
+  "description": "Portfolio of Rifath M - AI Engineer & Full Stack Developer",
+  "icons": [
+    {
+      "src": "./image/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./image/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#141414",
+  "background_color": "#141414",
+  "display": "standalone"
+}

@@ -1,0 +1,291 @@
+/* APEX GT-1 THEME OVERRIDES */
+:root {
+  --bg: #050507;
+  --bg-2: #0c0d10;
+  --fg: #f5f5f7;
+  --fg-dim: #7c8088;
+  --line: #1a1c20;
+  --silver: #c9ccd1;
+  --copper: #d99565;
+}
+
+body.apex-theme {
+  background: var(--bg) !important;
+  color: var(--fg) !important;
+  font-family: 'Syne', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.apex-theme a { color: inherit; text-decoration: none; }
+
+.apex-theme .container { max-width: 100%; padding: 0 48px; }
+.apex-theme .container-narrow { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
+.apex-theme .mono { font-family: 'IBM Plex Mono', monospace; }
+.apex-theme .serif { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+/* Hide old header and use apex nav */
+nav.header.top {
+  background: linear-gradient(180deg, rgba(5,5,7,0.9), transparent);
+  border: none !important;
+  padding: 22px 0;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 250;
+  transition: background 0.3s ease;
+}
+nav.header.top.header--scrolled {
+  background: rgba(5,5,7,0.95);
+  backdrop-filter: blur(10px);
+}
+.brand { display: flex; align-items: center; gap: 12px; font-family: 'Syne'; font-weight: 700; font-size: 18px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg) !important; }
+.brand .mark { width: 30px; height: 30px; border: 1.5px solid var(--silver); border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; }
+nav.top .nav-links { display: flex; list-style: none; gap: 36px; font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; margin: 0; padding: 0; background: transparent; border: none; }
+nav.top .nav-links a { color: var(--fg-dim); position: relative; padding: 5px 0;}
+nav.top .nav-links a:hover, nav.top .nav-links a.active { color: var(--fg); border-bottom: 1px solid var(--copper); }
+.build-btn {
+  padding: 10px 22px; border: 1px solid var(--silver); color: var(--silver) !important;
+  font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  transition: 0.25s; cursor: pointer; background: transparent;
+}
+.build-btn:hover { background: var(--silver); color: var(--bg) !important; }
+
+/* HERO */
+.apex-theme .hero { 
+  height: 100vh; min-height: 760px; position: relative; overflow: hidden;
+  background: radial-gradient(ellipse at center 65%, #2a2e34 0%, #0a0c10 50%, #050507 100%);
+  display: block; /* Override flex */
+  padding: 0; margin: 0; align-items: initial;
+}
+.apex-theme .hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(5,5,7,0.6) 0%, transparent 30%, transparent 70%, rgba(5,5,7,0.9) 100%);
+  pointer-events: none;
+}
+.apex-theme .car-stage {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 60%;
+  display: grid; place-items: end center; pointer-events: none;
+}
+.apex-theme .car {
+  width: min(1400px, 90%); aspect-ratio: 24/9; position: relative;
+}
+.apex-theme .car.car-photo {
+  width: min(700px, 95%); aspect-ratio: 1; /* Squarish for portrait */
+  background-size: cover; background-repeat: no-repeat;
+}
+.apex-theme .stage-floor {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 50%;
+  background: linear-gradient(180deg, transparent, rgba(201,204,209,0.08) 60%, rgba(201,204,209,0.2));
+  pointer-events: none;
+}
+.apex-theme .stage-floor::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(90deg, rgba(201,204,209,0) 0%, rgba(201,204,209,0.3) 50%, rgba(201,204,209,0) 100%);
+  height: 1px; top: auto; bottom: 30%;
+}
+.apex-theme .grid-floor {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: 200%; height: 50%;
+  background-image:
+    linear-gradient(90deg, rgba(201,204,209,0.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(201,204,209,0.06) 1px, transparent 1px);
+  background-size: 80px 80px;
+  transform: translateX(-50%) perspective(600px) rotateX(60deg);
+  transform-origin: center bottom;
+  mask-image: linear-gradient(180deg, transparent 0%, black 50%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 50%);
+}
+
+.apex-theme .hero-content {
+  position: relative; z-index: 5; padding-top: 140px; text-align: left;
+}
+.apex-theme .hero-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim);
+  margin-bottom: 28px;
+}
+.apex-theme .hero-eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--copper); box-shadow: 0 0 14px var(--copper); }
+.apex-theme .hero-eyebrow .silver { color: var(--silver); }
+
+.apex-theme .hero h1 {
+  font-family: 'Syne';
+  font-size: clamp(72px, 12vw, 200px); line-height: 0.85; letter-spacing: -0.04em; font-weight: 700;
+  text-transform: uppercase; margin: 0; text-align: left; color: var(--fg);
+}
+.apex-theme .hero h1 .serif { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 400; color: var(--silver); text-transform: none; letter-spacing: -0.02em; }
+.apex-theme .hero h1 .main-headline { display: inline-block !important; margin: 0; padding: 0; }
+.apex-theme .headline-letter { font-family: 'Syne'; } /* Ensure animation letters match */
+
+.apex-theme .hero-bottom {
+  position: absolute; bottom: 40px; left: 0; right: 0; padding: 0 48px;
+  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 30px; z-index: 5;
+}
+.apex-theme .stat-cell { border-top: 1px solid var(--line); padding-top: 16px; }
+.apex-theme .stat-cell .label { font-family: 'IBM Plex Mono'; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 10px; }
+.apex-theme .stat-cell .val { font-family: 'Syne'; font-size: 38px; letter-spacing: -0.03em; font-weight: 500; color: var(--fg); }
+.apex-theme .stat-cell .val .unit { font-family: 'IBM Plex Mono'; font-size: 13px; color: var(--fg-dim); margin-left: 8px; }
+.apex-theme .stat-cell .ann { font-family: 'IBM Plex Mono'; font-size: 11px; color: var(--copper); margin-top: 4px; }
+.apex-theme .stat-cell.cta { padding: 0; text-align: right; border: 0; display: flex; justify-content: flex-end; align-items: center;}
+.apex-theme .stat-cell.cta a {
+  display: inline-flex; align-items: center; gap: 14px;
+  background: var(--silver); color: var(--bg); padding: 16px 28px; border-radius: 0;
+  font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500;
+  border: none;
+}
+.apex-theme .stat-cell.cta a:hover { background: var(--copper); color: var(--fg); }
+
+/* SPEC LINE */
+.apex-theme .specline { padding: 30px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-2); overflow: hidden; }
+.apex-theme .specline-track {
+  display: flex; gap: 60px; align-items: center;
+  font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-dim);
+  animation: scroll-l 50s linear infinite; white-space: nowrap; width: max-content;
+}
+.apex-theme .specline-track .item { display: flex; align-items: center; gap: 12px; }
+.apex-theme .specline-track .item strong { color: var(--silver); font-weight: 500; }
+.apex-theme .specline-track .item::after { content: '✕'; color: var(--copper); }
+@keyframes scroll-l { to { transform: translateX(-50%); } }
+
+/* CHAPTERS */
+.apex-theme .chapter, .apex-theme .spec, .apex-theme .config, .apex-theme .reserve { padding: 160px 0; position: relative; max-width: 100%; margin: 0; }
+.apex-theme .spec { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+.apex-theme .ch-head { display: grid; grid-template-columns: 200px 1fr; gap: 60px; margin-bottom: 100px; }
+.apex-theme .ch-head .left { display: flex; flex-direction: column; gap: 6px; }
+.apex-theme .ch-head .left .n { font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 0.16em; color: var(--copper); }
+.apex-theme .ch-head .left .t { font-family: 'IBM Plex Mono'; font-size: 12px; letter-spacing: 0.16em; color: var(--fg-dim); text-transform: uppercase; }
+.apex-theme .ch-head h2, .apex-theme .spec-text h2, .apex-theme .config-head h2 {
+  font-family: 'Syne'; font-size: clamp(48px, 6vw, 96px); line-height: 0.95; letter-spacing: -0.025em; font-weight: 600;
+  max-width: 1100px; margin: 0; color: var(--fg); text-transform: none; text-align: left; background: none; -webkit-text-fill-color: var(--fg);
+}
+.apex-theme .ch-head h2 .serif, .apex-theme .spec-text h2 .serif, .apex-theme .config-head h2 .serif, .apex-theme .reserve h2 .serif { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 400; color: var(--silver); }
+.apex-theme .spec-text h2 .serif { color: var(--copper); }
+
+/* IMAGES & OVERLAYS */
+.apex-theme .img-feature {
+  aspect-ratio: 21 / 9; width: 100%; position: relative; overflow: hidden;
+  background: #050507 url('./image/hero-portrait.webp') center 20% / cover no-repeat;
+  border: 1px solid var(--line); filter: grayscale(80%);
+}
+.apex-theme .img-feature::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(90deg, rgba(217,149,101,0.0) 0%, rgba(217,149,101,0.2) 60%, rgba(217,149,101,0) 100%);
+  mix-blend-mode: screen;
+}
+.apex-theme .img-feature .grid-overlay { position: absolute; inset: 0; background-image: linear-gradient(90deg, transparent 0%, rgba(245,245,247,0.04) 1px, transparent 1px); background-size: 80px 100%; }
+.apex-theme .img-feature .caption {
+  position: absolute; bottom: 24px; left: 24px; right: 24px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-dim);
+}
+.apex-theme .img-feature .caption strong { color: var(--silver); }
+
+/* GRIDS */
+.apex-theme .ch-text-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 60px; margin-top: 80px; }
+.apex-theme .ct { padding-top: 20px; border-top: 1px solid var(--line); }
+.apex-theme .ct .label { font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.14em; color: var(--copper); margin-bottom: 16px; }
+.apex-theme .ct h4 { font-family: 'Syne'; font-size: 22px; letter-spacing: -0.01em; font-weight: 500; margin-bottom: 12px; color: var(--fg); }
+.apex-theme .ct p { font-family: 'Syne'; font-size: 14px; line-height: 1.6; color: var(--fg-dim); }
+
+/* SPEC BLOCK */
+.apex-theme .spec-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: stretch; }
+.apex-theme .spec-text p { font-family: 'Syne'; font-size: 17px; line-height: 1.55; color: var(--fg-dim); max-width: 540px; margin-bottom: 24px; margin-top: 36px;}
+.apex-theme .spec-table { border-top: 1px solid var(--line); }
+.apex-theme .spec-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.apex-theme .spec-row .k { font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-dim); align-self: center; }
+.apex-theme .spec-row .v { font-family: 'Syne'; font-size: 19px; letter-spacing: -0.01em; font-weight: 500; color: var(--fg); }
+.apex-theme .spec-row .v small { font-family: 'IBM Plex Mono'; font-size: 11px; color: var(--fg-dim); margin-left: 6px; letter-spacing: 0.1em; }
+
+/* CONFIG (WORKS) */
+.apex-theme .config-head { text-align: center; margin-bottom: 80px; }
+.apex-theme .config-head .eyebrow { font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.18em; color: var(--copper); margin-bottom: 18px; display: block; }
+.apex-theme .config-head h2 { text-align: center; }
+.apex-theme .config-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.apex-theme .trim {
+  background: var(--bg-2); border: 1px solid var(--line); padding: 36px;
+  position: relative; min-height: 480px; display: flex; flex-direction: column; border-radius: 0; box-shadow: none;
+}
+.apex-theme .trim.featured { background: var(--bg); border-color: var(--copper); }
+.apex-theme .trim .label { font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 14px; }
+.apex-theme .trim.featured .label { color: var(--copper); }
+.apex-theme .trim h3 { font-family: 'Syne'; font-size: 36px; letter-spacing: -0.02em; font-weight: 600; margin-bottom: 8px; color: var(--fg); }
+.apex-theme .trim .from { font-family: 'IBM Plex Mono'; font-size: 13px; color: var(--silver); margin-bottom: 28px; }
+.apex-theme .trim-img {
+  aspect-ratio: 16/9; margin-bottom: 28px; border: 1px solid var(--line); position: relative; overflow: hidden; border-radius: 0;
+}
+.apex-theme .trim-img::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30%; background: linear-gradient(180deg, transparent, rgba(217,149,101,0.1)); }
+.apex-theme .trim ul { list-style: none; margin: 0; padding: 0; flex: 1; }
+.apex-theme .trim ul li { padding: 10px 0; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 13px; font-family: 'Syne'; color: var(--fg); margin:0;}
+.apex-theme .trim ul li:last-child { border: 0; }
+.apex-theme .trim ul li .k { color: var(--fg-dim); font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.apex-theme .trim .cta-row { margin-top: 24px; display: flex; gap: 12px; }
+.apex-theme .trim a {
+  flex: 1; padding: 13px; text-align: center; font-family: 'IBM Plex Mono';
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  border: 1px solid var(--silver); transition: 0.25s; color: var(--silver); border-radius: 0;
+}
+.apex-theme .trim a:hover { background: var(--silver); color: var(--bg); }
+.apex-theme .trim a.primary { background: var(--silver); color: var(--bg); }
+.apex-theme .trim.featured a.primary { background: var(--copper); border-color: var(--copper); color: var(--bg); }
+
+/* RESERVE (CONTACT) */
+.apex-theme .reserve { 
+  background: radial-gradient(ellipse at center, #1a1c20 0%, #050507 70%);
+}
+.apex-theme .reserve-wrap { text-align: center; position: relative; }
+.apex-theme .reserve h2 { font-family: 'Syne'; font-size: clamp(56px, 8vw, 132px); line-height: 0.9; letter-spacing: -0.035em; font-weight: 600; text-transform: uppercase; margin-bottom: 28px; color: var(--fg); background: none; -webkit-text-fill-color: var(--fg); text-align:center; width:100%;}
+.apex-theme .reserve h2 .serif { color: var(--copper); text-transform: none; }
+.apex-theme .reserve p { font-family: 'Syne'; font-size: 18px; color: var(--fg-dim); max-width: 540px; margin: 0 auto 40px; }
+.apex-theme .reserve-cta { display: inline-flex; align-items: center; justify-content: center; gap: 16px; padding: 18px 36px; background: var(--silver); color: var(--bg); font-family: 'IBM Plex Mono'; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; transition: 0.25s; border-radius: 0; border: none; cursor: pointer; text-decoration: none;}
+.apex-theme .reserve-cta:hover { background: var(--copper); color: var(--fg); }
+
+/* FOOTER */
+.apex-theme footer { padding: 80px 0 32px; border-top: 1px solid var(--line); background: var(--bg); margin: 0; max-width: 100%;}
+.apex-theme .ft-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+.apex-theme .ft-grid h5 { font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-dim); margin-bottom: 18px; font-weight: 500; }
+.apex-theme .ft-grid ul { padding: 0; margin: 0; }
+.apex-theme .ft-grid li { list-style: none; padding: 5px 0; font-size: 14px; font-family: 'Syne'; color: var(--fg); margin: 0;}
+.apex-theme .ft-grid li a { color: var(--fg); }
+.apex-theme .ft-grid li a:hover { color: var(--copper); }
+.apex-theme .ft-brand-blurb { color: var(--fg-dim); font-size: 14px; max-width: 320px; line-height: 1.6; margin-top: 16px; font-family: 'Syne'; }
+.apex-theme .ft-bot { display: flex; justify-content: space-between; padding-top: 28px; border-top: 1px solid var(--line); font-family: 'IBM Plex Mono'; font-size: 11px; letter-spacing: 0.12em; color: var(--fg-dim); text-transform: uppercase;}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .apex-theme .config-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .apex-theme .spec-grid { grid-template-columns: 1fr; gap: 48px; }
+  .apex-theme .ch-text-grid { grid-template-columns: 1fr; gap: 32px; }
+  .apex-theme .ft-grid { grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
+  .apex-theme .ft-grid > div:nth-child(4), .apex-theme .ft-grid > div:nth-child(5) { grid-column: span 1; }
+}
+@media (max-width: 640px) {
+  .apex-theme .container, .apex-theme .container-narrow { padding: 0 20px; }
+  .apex-theme nav.top .nav-links { display: none; }
+  .apex-theme nav.top { padding: 16px 0; }
+  .apex-theme .brand { font-size: 14px; }
+  .apex-theme .hero { min-height: 100vh; }
+  .apex-theme .hero h1 { margin-bottom: 0; }
+  .apex-theme .hero-eyebrow { font-size: 10px; }
+  .apex-theme .hero-bottom { grid-template-columns: 1fr 1fr; gap: 18px; padding: 0 20px; position: relative; bottom: 0; margin-top: 30px; }
+  .apex-theme .stat-cell .val { font-size: 28px; }
+  .apex-theme .stat-cell.cta { grid-column: 1 / -1; text-align: center; justify-content: center;}
+  .apex-theme .stat-cell.cta a { width: 100%; justify-content: center; }
+  .apex-theme .car-stage { height: 50%; }
+  .apex-theme .car.car-photo { width: 100%; }
+  .apex-theme .specline-track { font-size: 11px; gap: 30px; }
+  .apex-theme .chapter, .apex-theme .spec, .apex-theme .config, .apex-theme .reserve { padding: 80px 0; }
+  .apex-theme .ch-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 50px; }
+  .apex-theme .img-feature { aspect-ratio: 16/10; }
+  .apex-theme .ch-text-grid { margin-top: 50px; }
+  .apex-theme .spec-row { grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 0; }
+  .apex-theme .spec-row .v { font-size: 16px; }
+  .apex-theme .trim { padding: 28px; min-height: auto; }
+  .apex-theme .trim h3 { font-size: 30px; }
+  .apex-theme .reserve-cta { padding: 16px 28px; font-size: 12px; width: 100%; justify-content: center; }
+  .apex-theme footer { padding: 60px 0 24px; }
+  .apex-theme .ft-grid { grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+  .apex-theme .ft-grid > div:first-child { grid-column: 1 / -1; margin-bottom: 8px; }
+  .apex-theme .ft-bot { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+/* Scroll Reveals Tweaks for Apex Theme */
+.apex-theme .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.apex-theme .revealed { opacity: 1; transform: translateY(0); }
+.apex-theme .hamburger span { background-color: var(--fg); }

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rifath M — AI-focused Full Stack Engineer building intelligent systems from model to production.">
+  <title>Rifath M — AI Engineer & Full Stack Developer</title>
+  
+  <link rel="icon" type="image/png" href="./image/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./image/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./image/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./image/favicon.png">
+  
+  <!-- Original Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Apex GT-1 Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Cormorant+Garamond:ital@0;1&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="apex-style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="loading dark-theme apex-theme">
+  <!-- LOADER SECTION -->
+  <div id="loader" class="loader" role="status" aria-live="polite">
+    <div id="waves-container" class="waves-container"><canvas class="waves-canvas"></canvas></div>
+    <div class="loader__content">
+      <div class="loader__orbit">
+        <div class="loader__orbit-inner">
+          <span class="orbit-word">BUILD</span>
+          <span class="orbit-word">SMARTER</span>
+          <span class="orbit-word">BUILD</span>
+          <span class="orbit-word">WITH</span>
+          <span class="orbit-word">ME</span>
+        </div>
+      </div>
+      <p id="loader-percent" class="loader__percent">0%</p>
+    </div>
+  </div>
+
+  <div class="portfolio">
+    <main id="main-content">
+    <div class="menu-overlay"></div>
+    
+    <!-- Theme Toggle (Hidden for cinematic effect) -->
+    <div class="theme-toggle-container" style="display:none;"></div>
+    
+    <!-- NAVIGATION (APEX STYLE) -->
+    <nav class="header top">
+      <div class="container row" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+        <a class="brand" href="#"><span class="mark">R</span> RIFATH M</a>
+        <button class="hamburger" type="button" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+          <li><a href="#about" class="active">ABOUT</a></li>
+          <li><a href="#experience">EXPERIENCE</a></li>
+          <li><a href="#works">WORKS</a></li>
+          <li><a href="#services">SERVICES</a></li>
+        </ul>
+        <div class="header-actions">
+          <a class="build-btn contact-btn" href="#contact">CONNECT ↗</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contactModal" role="dialog" aria-modal="true">
+      <div class="contact-modal-overlay"></div>
+      <div class="contact-modal-content" style="background: var(--bg-2); border: 1px solid var(--line); border-radius: 0;">
+        <button class="contact-modal-close" style="color: var(--copper);">&times;</button>
+        <h2 class="contact-modal-title" style="font-family: 'Syne'; color: var(--fg); text-transform: uppercase;">Init<span class="serif">iate</span> Connection</h2>
+        <p class="contact-modal-subtitle" style="font-family: 'IBM Plex Mono'; color: var(--fg-dim);">Select a protocol to reach out.</p>
+        <div class="contact-modal-links">
+          <a href="#" class="contact-modal-link obfuscated-email" data-user="syedrifathm" data-domain="gmail.com" style="background: var(--bg); border: 1px solid var(--line); border-radius: 0;">
+            <div class="contact-modal-link-content">
+              <span class="contact-modal-link-title" style="color: var(--copper); font-family: 'IBM Plex Mono'; text-transform: uppercase;">Email</span>
+              <span class="contact-modal-link-subtitle email-text" style="color: var(--fg-dim);">Click to reveal</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/syedrifathm/" target="_blank" class="contact-modal-link" style="background: var(--bg); border: 1px solid var(--line); border-radius: 0;">
+            <div class="contact-modal-link-content">
+              <span class="contact-modal-link-title" style="color: var(--copper); font-family: 'IBM Plex Mono'; text-transform: uppercase;">LinkedIn</span>
+              <span class="contact-modal-link-subtitle" style="color: var(--fg-dim);">Professional Network</span>
+            </div>
+          </a>
+          <a href="https://github.com/rifath2005" target="_blank" class="contact-modal-link" style="background: var(--bg); border: 1px solid var(--line); border-radius: 0;">
+            <div class="contact-modal-link-content">
+              <span class="contact-modal-link-title" style="color: var(--copper); font-family: 'IBM Plex Mono'; text-transform: uppercase;">GitHub</span>
+              <span class="contact-modal-link-subtitle" style="color: var(--fg-dim);">Code Repositories</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+      <div class="hero-spotlight"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <span class="dot"></span> <span>AI ENGINEER · FULL STACK DEVELOPER · INDIA</span>
+            <span style="color: var(--line)">/</span>
+            <span class="silver">AVAILABLE FOR ROLES</span>
+          </div>
+          <h1>
+            RIFATH <span class="serif">M</span><br>
+            <div class="main-headline" style="opacity: 0; visibility: hidden; display: inline-block;">AI ENGINEER</div>
+          </h1>
+        </div>
+        <div class="grid-floor"></div>
+        <div class="stage-floor"></div>
+        <div class="car-stage">
+           <!-- Portrait Image replacing the car -->
+           <div class="car car-photo" style="background-image: url('./image/hero-portrait.webp'); background-position: bottom center; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)) grayscale(40%) contrast(1.1);"></div>
+        </div>
+        <div class="hero-bottom">
+          <div class="stat-cell">
+            <div class="label">Production Apps</div>
+            <div class="val stat-number" data-target="4">0<span class="unit">+</span></div>
+            <div class="ann">— Full Stack Solutions</div>
+          </div>
+          <div class="stat-cell">
+            <div class="label">Latency Drop</div>
+            <div class="val stat-number" data-target="97">0<span class="unit">%</span></div>
+            <div class="ann">— System Optimization</div>
+          </div>
+          <div class="stat-cell">
+            <div class="label">Task Automation</div>
+            <div class="val stat-number" data-target="60">0<span class="unit">%</span></div>
+            <div class="ann">— Workflow Efficiency</div>
+          </div>
+          <div class="stat-cell cta">
+            <a href="#works" class="contact-link">Explore Works →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPEC LINE MARQUEE -->
+    <div class="specline">
+      <div class="specline-track">
+        <span class="item"><strong>NODE.JS</strong> · BACKEND</span>
+        <span class="item"><strong>PYTHON</strong> · ML & AUTOMATION</span>
+        <span class="item"><strong>REACT & NEXT</strong> · FRONTEND</span>
+        <span class="item"><strong>POSTGRESQL</strong> · DATABASES</span>
+        <span class="item"><strong>AWS & CLOUD</strong> · DEVOPS</span>
+        <span class="item"><strong>NODE.JS</strong> · BACKEND</span>
+        <span class="item"><strong>PYTHON</strong> · ML & AUTOMATION</span>
+        <span class="item"><strong>REACT & NEXT</strong> · FRONTEND</span>
+        <span class="item"><strong>POSTGRESQL</strong> · DATABASES</span>
+        <span class="item"><strong>AWS & CLOUD</strong> · DEVOPS</span>
+      </div>
+    </div>
+
+    <!-- CHAPTER 01: ABOUT -->
+    <section class="chapter section section--about" id="about">
+      <div class="container-narrow">
+        <div class="ch-head">
+          <div class="left">
+            <div class="n">CHAPTER 01</div>
+            <div class="t">— Logic Follows Architecture</div>
+          </div>
+          <h2>Building systems <span class="serif">engineered</span> for impact,<br>not just aesthetics.</h2>
+        </div>
+        
+        <div class="img-feature">
+          <div class="grid-overlay"></div>
+          <div class="caption">
+            <span><strong>FIG. 01</strong> · Rathinam Technical Campus · 2023 - Present</span>
+            <span>B.Tech IT</span>
+          </div>
+        </div>
+        
+        <div class="ch-text-grid reveal-on-scroll">
+          <div class="ct">
+            <div class="label">— FRONT-END PRECISION</div>
+            <h4>Interfaces that disappear.</h4>
+            <p>Creating seamless, highly interactive web applications using HTML5, CSS3, modern JavaScript, and responsive frameworks. The interface shouldn't just look good; it should feel effortless.</p>
+          </div>
+          <div class="ct">
+            <div class="label">— BACKEND & DATABASES</div>
+            <h4>Architecture that scales.</h4>
+            <p>Building robust server-side applications and RESTful APIs using Node.js and Express. Designing optimized SQL databases capable of high-throughput queries with millisecond latency.</p>
+          </div>
+          <div class="ct">
+            <div class="label">— AI & AUTOMATION</div>
+            <h4>Intelligence that listens.</h4>
+            <p>Integrating Natural Language Processing (NLP) and machine learning foundations to automate workflows, orchestrate pipelines, and build systems that adapt to user behavior.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 02: EXPERIENCE -->
+    <section class="spec section section--experience" id="experience">
+      <div class="container-narrow">
+        <div class="spec-grid">
+          <div class="spec-text reveal-on-scroll">
+            <div class="ch-head" style="margin-bottom: 0;">
+              <div class="left">
+                <div class="n">CHAPTER 02</div>
+                <div class="t">— Professional Experience</div>
+              </div>
+            </div>
+            <h2>A trajectory that<br><span class="serif">earns</span> its momentum.</h2>
+            <p class="bio-text">From academic foundations to production-level engineering, bridging the gap between theoretical models and real-world software solutions.</p>
+            <p class="bio-text">Every project is service-life-tested, optimizing code until it reaches maximum efficiency.</p>
+          </div>
+          <div class="spec-table reveal-on-scroll">
+            <div class="spec-row"><div class="k">2024</div><div class="v">Marcello Tech <small>INTERNSHIP</small></div></div>
+            <div class="spec-row"><div class="k">Role</div><div class="v">Software Dev Intern <small>NODE.JS</small></div></div>
+            <div class="spec-row"><div class="k">Focus</div><div class="v">Backend Systems <small>APIs & DBs</small></div></div>
+            <div class="spec-row"><div class="k">Education</div><div class="v">B.Tech IT <small>2023 - PRESENT</small></div></div>
+            <div class="spec-row"><div class="k">Institution</div><div class="v">Rathinam Campus <small>ENGINEERING</small></div></div>
+            <div class="spec-row"><div class="k">Cert</div><div class="v">AWS ML for NLP <small>VERIFIED</small></div></div>
+            <div class="spec-row"><div class="k">Cert</div><div class="v">AWS ML Foundation <small>VERIFIED</small></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER 03: WORKS -->
+    <section class="config section section--works" id="works">
+      <div class="container-narrow">
+        <div class="config-head reveal-on-scroll">
+          <span class="eyebrow">CHAPTER 03 — SELECTED WORKS</span>
+          <h2>Three <span class="serif">solutions</span>.<br>Zero compromises.</h2>
+        </div>
+        <div class="config-grid">
+          
+          <div class="trim work-card reveal-on-scroll">
+            <div class="label">— AI & AUTOMATION</div>
+            <h3>MCP Auto</h3>
+            <div class="from">Latency Drop: -60%</div>
+            <div class="trim-img" style="background: #111; display:flex; align-items:center; justify-content:center; color: var(--silver); font-family: 'Syne'; font-size: 24px; letter-spacing: -0.02em;">EVENT ORCHESTRATION</div>
+            <ul>
+              <li><span class="k">Role</span><span>Webhook Engine</span></li>
+              <li><span class="k">Stack</span><span>Node.js, Pipedream</span></li>
+              <li><span class="k">Impact</span><span>Automated IDE workflows</span></li>
+            </ul>
+            <div class="cta-row">
+              <a href="#" class="contact-btn">Details</a>
+              <a href="https://github.com/rifath2005" target="_blank" class="primary">Source →</a>
+            </div>
+          </div>
+
+          <div class="trim featured work-card reveal-on-scroll">
+            <div class="label">— FULL STACK · HIGH PERFORMANCE</div>
+            <h3>Notinq CMS</h3>
+            <div class="from">Query Latency: 50ms</div>
+            <div class="trim-img" style="background: #111; display:flex; align-items:center; justify-content:center; color: var(--copper); font-family: 'Syne'; font-size: 24px; letter-spacing: -0.02em;">CANTEEN PLATFORM</div>
+            <ul>
+              <li><span class="k">Role</span><span>End-to-End System</span></li>
+              <li><span class="k">Stack</span><span>Node, TS, PostgreSQL, Redis</span></li>
+              <li><span class="k">Impact</span><span>Eliminated Queue Bottlenecks</span></li>
+            </ul>
+            <div class="cta-row">
+              <a href="#" class="contact-btn">Case Study</a>
+              <a href="https://github.com/rifath2005" target="_blank" class="primary">Source →</a>
+            </div>
+          </div>
+
+          <div class="trim work-card reveal-on-scroll">
+            <div class="label">— SECURITY & BROWSER EXT.</div>
+            <h3>Brevity AI</h3>
+            <div class="from">Security: 100% On-Device</div>
+            <div class="trim-img" style="background: #111; display:flex; align-items:center; justify-content:center; color: var(--silver); font-family: 'Syne'; font-size: 24px; letter-spacing: -0.02em;">PRIVACY EXTENSION</div>
+            <ul>
+              <li><span class="k">Role</span><span>Chrome Extension (V3)</span></li>
+              <li><span class="k">Stack</span><span>React, TS, Vite, Storage API</span></li>
+              <li><span class="k">Impact</span><span>Sandboxed Email Intelligence</span></li>
+            </ul>
+            <div class="cta-row">
+              <a href="#" class="contact-btn">Case Study</a>
+              <a href="https://github.com/rifath2005" target="_blank" class="primary">Source →</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section class="reserve section section--contact" id="contact">
+      <div class="container-narrow">
+        <div class="reserve-wrap reveal-on-scroll">
+          <div class="hero-eyebrow" style="justify-content:center;">
+            <span class="dot"></span> <span>Availability · Open for Full-Time & Freelance</span>
+          </div>
+          <h2>The <span class="serif">exit speed</span><br>of execution.</h2>
+          <p class="contact-intro">Looking for a highly skilled AI Engineer and Full Stack Developer to build robust, scalable systems? Let's engineer the future together.</p>
+          <a class="reserve-cta contact-btn line-hover-grow" href="#">Initiate Collaboration →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container-narrow">
+        <div class="ft-grid">
+          <div>
+            <a class="brand" href="#"><span class="mark">R</span> RIFATH M</a>
+            <p class="ft-brand-blurb">Designing, engineering, and building intelligent systems that scale.</p>
+          </div>
+          <div><h5>Navigation</h5><ul><li><a href="#hero">Home</a></li><li><a href="#about">About</a></li><li><a href="#works">Works</a></li></ul></div>
+          <div><h5>Profiles</h5><ul><li><a href="https://github.com/rifath2005" target="_blank">GitHub</a></li><li><a href="https://www.linkedin.com/in/syedrifathm/" target="_blank">LinkedIn</a></li></ul></div>
+          <div><h5>Contact</h5><ul><li><a href="#" class="obfuscated-email" data-user="syedrifathm" data-domain="gmail.com">Email</a></li><li><a href="tel:+918220084050">Phone</a></li></ul></div>
+        </div>
+        <div class="ft-bot">
+          <span>© 2026 RIFATH M — ENGINEERED IN INDIA</span>
+          <span>AI & FULL STACK DEVELOPER</span>
+        </div>
+      </div>
+    </footer>
+
+    </main>
+  </div>
+
+  <script src="loader.js"></script>
+  <script src="text-animation.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

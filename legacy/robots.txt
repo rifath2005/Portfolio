@@ -1,0 +1,5 @@
+# robots.txt for Rifath M Portfolio
+User-agent: *
+Allow: /
+
+Sitemap: https://rifathm.dev/sitemap.xml

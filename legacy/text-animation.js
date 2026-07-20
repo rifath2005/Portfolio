@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // ===== ABOUT TITLE ANIMATION =====
-  const aboutTitle = document.querySelector('#about > h2');
+  const aboutTitle = document.querySelector('#about h2');
   
   if (aboutTitle && !aboutTitle.dataset.animated) {
     const text = aboutTitle.textContent;

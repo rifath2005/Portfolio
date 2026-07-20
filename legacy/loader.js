@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
-  // Loading simulation: 0% → 100% over ~5s (extended by 2 seconds)
+  // Loading simulation: 0% → 100% over ~2.5s
   let progress = 0;
-  const duration = 5000; // Changed from 3000 to 5000ms
+  const duration = 2500;
   const startTime = Date.now();
 
   function updateProgress() {
